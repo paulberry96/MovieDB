@@ -1,0 +1,7 @@
+{
+    "movieListPath": "C:\\Users\\Paul\\MovieDB\\MovieList.txt",
+    "libraryPath": "C:\\Users\\Paul\\MovieDB\\library",
+    "processing": {
+        "doProcessing": true
+    }
+}
