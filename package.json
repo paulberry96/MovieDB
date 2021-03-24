@@ -1,0 +1,39 @@
+{
+  "name": "moviedb",
+  "version": "1.0.0",
+  "description": "Personal Movie Database",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "mon": "nodemon src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "nedb": "^1.8.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "/db/*.db",
+      "/app/*"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paulberry96/MovieDB.git"
+  },
+  "keywords": [
+    "movie",
+    "database",
+    "manager",
+    "personal"
+  ],
+  "author": "Paul Berry",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/paulberry96/MovieDB/issues"
+  },
+  "homepage": "https://github.com/paulberry96/MovieDB#readme"
+}
