@@ -1,38 +1,45 @@
-.App {
-  text-align: center;
+.app {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	color: #dadada;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.contents {
+	flex: 1 1 100%;
+	padding: 20px;
+	overflow-y: scroll;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.contents::-webkit-scrollbar {
+	width: 14px
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.contents::-webkit-scrollbar-corner, .contents::-webkit-scrollbar-track {
+	background-color: transparent
 }
 
-.App-link {
-  color: #61dafb;
+.contents::-webkit-scrollbar-thumb {
+	min-height: 50px;
+	border: 3px solid transparent;
+	border-radius: 8px;
+	background-color: hsla(0, 0%, 100%, .2);
+	background-clip: padding-box
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.contents::-webkit-scrollbar-thumb:hover {
+	background-color: hsla(0, 0%, 100%, .3)
+}
+
+.contents::-webkit-scrollbar-thumb:window-inactive {
+	background-color: hsla(0, 0%, 100%, .05)
 }

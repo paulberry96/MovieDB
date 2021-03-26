@@ -11,7 +11,7 @@ const { scanMovieList } = require('./scan');
 
 	try {
 		app.get('/', function(req, res) {
-			res.sendFile(path.join(process.cwd(), 'app', 'build', 'index.html'));
+			res.sendFile(path.join(process.cwd(), 'app', 'index.html'));
 		});
 
 		// app.use('/api', api);
