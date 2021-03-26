@@ -7,7 +7,7 @@ const { scanMovieList } = require('./scan');
 (async function() {
 
 	const app = express();
-	const port = 2323;
+	const port = 2424;
 
 	try {
 		app.get('/', function(req, res) {
