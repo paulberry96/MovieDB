@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const api = require('./api');
 const { loadConfig } = require('./config');
 const { loadStores } = require('./db');
 const { scanMovieList } = require('./scan');
@@ -13,13 +14,10 @@ const { scanMovieList } = require('./scan');
 		app.get('/', function(req, res) {
 			res.sendFile(path.join(process.cwd(), 'app', 'index.html'));
 		});
-
-		// app.use('/api', api);
-
-		await loadConfig();
-
+		app.use('/api', api);
 		app.listen(port);
-
+		
+		await loadConfig();
 		await loadStores();
 		await scanMovieList();
 	}

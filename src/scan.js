@@ -32,8 +32,6 @@ async function scanMovieList() {
                 ProcessingQueue.append(movie);
         }
 
-        console.log("READY TO PROCESS");
-
         if(config.processing.doProcessing) {
             ProcessingQueue.start();
         }

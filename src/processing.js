@@ -1,6 +1,5 @@
 'use strict';
 
-const fs = require('fs');
 const Movie = require('./types/Movie');
 const database = require('./db');
 
@@ -16,10 +15,15 @@ async function process(item) {
 
     const movieData = await Movie.fetchMovieData();
 
-    const total = (queue.length + numProcessed) + 1;
-    numProcessed++;
+    const movie = Object.assign(item, movieData);
 
-    console.log(`--- (${numProcessed}/${total}) Processed - ${item.name}`);
+    movie.processed = true;
+
+    await database.update(database.store.movies, { _id: movie._id }, movie);
+
+    numProcessed++;
+    const total = (queue.length + numProcessed);
+    console.log(`--- (${numProcessed}/${total}) Processed - ${movie.name}`);
 }
 
 function start() {

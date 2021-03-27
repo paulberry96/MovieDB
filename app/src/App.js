@@ -1,11 +1,10 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-
 import Header from "./components/Header";
-
 import HomePage from "./pages/HomePage";
-
 import './App.css';
+
+import rootStoreInstance, { RootStoreContext } from "./stores/RootStore";
 
 export default class App extends React.Component {
 
@@ -16,17 +15,19 @@ export default class App extends React.Component {
 	render() {
 		return (
 			<BrowserRouter>
-				<div className="app">
+				<RootStoreContext.Provider value={rootStoreInstance}>
+					<div className="app">
 
-					<Header />
+						<Header />
 
-					<div className="contents">
-						<Switch>
-							<Route exact path="/" component={HomePage} />
-						</Switch>
+						<div className="contents">
+							<Switch>
+								<Route exact path="/" component={HomePage} />
+							</Switch>
+						</div>
+
 					</div>
-
-				</div>
+				</RootStoreContext.Provider>
 			</BrowserRouter>
 		);
 	}

@@ -2,6 +2,10 @@
 
 const database = require('../db');
 
+const fs = require('fs');
+
+const testData = JSON.parse(fs.readFileSync('./testData.json', 'utf-8'));
+
 class Movie {
 
     static async getAll() {
@@ -18,7 +22,9 @@ class Movie {
 
     static async fetchMovieData() {
         return new Promise((resolve, reject) => {
-            resolve('test');
+            setTimeout(function() {
+                resolve(testData);
+            }, 1000);
         });
     }
 }
