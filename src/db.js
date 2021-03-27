@@ -2,7 +2,7 @@
 
 const path = require('path');
 const DataStore = require('nedb');
-const { getConfig } = require('./config');
+const { libPath } = require('./utils');
 
 let store = {
     movies: null,
@@ -24,11 +24,9 @@ function loadStore(path) {
 
 async function loadStores() {
     try {
-        const libPath = getConfig().libraryPath;
-
         Object.assign(store, {
-            movies: await loadStore(path.join(libPath, 'Movies.db')),
-            autoIncrement: await loadStore(path.join(libPath, 'AutoIncrement.db'))
+            movies: await loadStore(path.join(libPath('db'), 'Movies.db')),
+            autoIncrement: await loadStore(path.join(libPath('db'), 'AutoIncrement.db'))
         });
 
         store.movies.ensureIndex({ fieldName: '_id', unique: true });

@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const api = require('./api');
 const { loadConfig } = require('./config');
+const { libPath } = require('./utils');
 const { loadStores } = require('./db');
 const { scanMovieList } = require('./scan');
 
@@ -11,13 +12,15 @@ const { scanMovieList } = require('./scan');
 	const port = 2424;
 
 	try {
+		await loadConfig();
+
 		app.get('/', function(req, res) {
 			res.sendFile(path.join(process.cwd(), 'app', 'index.html'));
 		});
+		app.use('/thumbs', express.static(libPath('thumbnails')));
 		app.use('/api', api);
 		app.listen(port);
 		
-		await loadConfig();
 		await loadStores();
 		await scanMovieList();
 	}

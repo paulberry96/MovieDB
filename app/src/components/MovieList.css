@@ -1,9 +1,9 @@
 .movie-list {
     display: grid;
     
-    grid-template-columns: repeat(auto-fill, 320px);
+    grid-template-columns: repeat(auto-fill, 180px);
 
-    grid-gap: 15px 10px;
+    grid-gap: 15px 40px;
 
     align-items: baseline;
     justify-content: space-between;

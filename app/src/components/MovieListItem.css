@@ -1,3 +1,53 @@
 .movie-list-item {
-    
+    padding: 20px 0px;
+}
+
+.movie-list-item > .image {
+    position:relative;
+    font-size:0px;
+    box-shadow: 0px 2px 10px 1px rgb(0 0 0 / 50%);
+    cursor:pointer;
+}
+
+.movie-list-item > .image > img {
+    width:180px;
+    height:266px;
+}
+
+.movie-list-item > .image > .rating {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    padding: 0px 5px;
+    background: radial-gradient(#ffe58e, #ce981d);
+    color: #000;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 2px;
+    z-index: 7;
+}
+
+.movie-list-item > .details {
+    margin-top: 10px;
+}
+
+.movie-list-item > .details > .title {
+    font-size: 16px;
+    font-weight: 400;
+    color: #efefef;
+}
+
+.movie-list-item > .details > .genre {
+    font-size: 12px;
+    font-weight: 400;
+    color: #696969;
+}
+
+.movie-list-item > .details > .additional-details  {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 400;
+    color: #9a9a9a;
 }
