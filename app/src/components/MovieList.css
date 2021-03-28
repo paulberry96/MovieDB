@@ -1,4 +1,8 @@
-.movie-list {
+.movie-list-wrapper {
+    padding:20px 20px;
+}
+
+.movie-list-wrapper > .movie-list {
     display: grid;
     
     grid-template-columns: repeat(auto-fill, 180px);
@@ -9,6 +13,77 @@
     justify-content: space-between;
 
     margin:0px;
-    padding:20px 20px;
     list-style: none;
+}
+
+.movie-list-wrapper > .action-bar {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.movie-list-wrapper > .action-bar > .title {
+
+}
+
+.movie-list-wrapper > .action-bar > .title > h3 {
+    display:inline-block;
+    font-size:20px;
+    color:#fafafa;
+    padding-right:10px;
+    margin:0;
+}
+
+.movie-list-wrapper > .action-bar > .title > span {
+    font-size:16px;
+    color:#efefef;
+}
+
+.movie-list-wrapper > .action-bar > .actions {
+    display:flex;
+    flex-direction: row;
+}
+
+.Dropdown-control {
+    background-color: #383838;
+    border: none;
+    color: #efefef;
+    padding: 6px 30px 6px 10px;
+    width: 120px;
+    border-radius: 2px 0px 0px 2px;
+    cursor: pointer;
+}
+
+.Dropdown-arrow {
+    top:15px;
+}
+
+.Dropdown-menu {
+    background-color: #3a3a3a;
+    box-shadow: 0px 10px 20px 0px rgb(0 0 0);
+    border:none;
+    top:120%;
+    border-radius:2px;
+}
+
+.Dropdown-option {
+    color: #dadada;
+}
+
+.Dropdown-option:hover,
+.Dropdown-option.is-selected {
+    background-color: #4c4c4c;
+    color: #dadada;
+}
+
+.btn-sort-dir {
+    font-size:15px;
+    background-color: #3a3a3a;
+    color:#dadada;
+    padding:0px 10px;
+    border:none;
+    border-left:1px solid #5f5f5f;
+    border-radius:0px 2px 2px 0px;
+    cursor:pointer;
+    outline:none;
 }

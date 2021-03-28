@@ -4,11 +4,19 @@ export default class MovieStore {
 
     movies = [];
 
+    sort = {
+        value: "",
+        dir: 0
+    };
+
     constructor() {
         makeObservable(this, {
             movies: observable,
+            sort: observable,
 
-            setMovies: action
+            setMovies: action,
+            sortMovies: action,
+            toggleSortDir: action
         });
 
         this.fetchMovieData();
@@ -31,5 +39,13 @@ export default class MovieStore {
 
     setMovies(movies) {
         this.movies = movies;
+    }
+
+    sortMovies = (opt) => {
+        this.sort.value = opt.value;
+    }
+
+    toggleSortDir = () => {
+        this.sort.dir = 1 - this.sort.dir;
     }
 }
