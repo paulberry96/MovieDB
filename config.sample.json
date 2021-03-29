@@ -3,5 +3,6 @@
     "libraryPath": "C:\\Users\\Paul\\MovieDB\\library",
     "processing": {
         "doProcessing": true
-    }
+    },
+    "API_KEY": ""
 }
