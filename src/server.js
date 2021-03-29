@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const api = require('./api');
 const { loadConfig } = require('./config');
-const { libPath } = require('./utils');
+const { createLibPaths, libPath } = require('./utils');
 const { loadStores } = require('./db');
 const { scanMovieList } = require('./scan');
 
@@ -13,6 +13,7 @@ const { scanMovieList } = require('./scan');
 
 	try {
 		await loadConfig();
+		createLibPaths(['db', 'thumbnails']);
 
 		app.get('/', function(req, res) {
 			res.sendFile(path.join(process.cwd(), 'app', 'index.html'));

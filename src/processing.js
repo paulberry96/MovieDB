@@ -17,7 +17,9 @@ async function process(item) {
         let movieData;
 
         try {
-            movieData = await Movie.fetchMovieData();
+            movieData = await Movie.fetchMovieData(item.name);
+
+            await Movie.saveMoviePoster(movieData);
         }
         catch(err) {
             reject(err);
@@ -49,14 +51,22 @@ async function processLoop() {
 
     isProcessing = true;
 
+    console.log(`--- Ready to process ${queue.length} movies`);
+
     let item = queue.shift();
 
     while(!!item) {
         try {
             await process(item);
         }
-        catch(error) {
-            console.warn(error);
+        catch(err) {
+            if(err.continue === false) {
+                console.log("Error", err.message);
+                break;
+            }
+            else {
+                console.warn(err);
+            }
         }
         item = queue.shift();
     }

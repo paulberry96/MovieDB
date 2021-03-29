@@ -8,7 +8,8 @@ const DEFAULT_CONFIG = {
     "libraryPath": path.join(process.cwd(), 'library'),
     "processing": {
         "doProcessing": true
-    }
+    },
+    "API_KEY": ""
 }
 
 const configFile = path.join(process.cwd(), 'config.json');

@@ -1,6 +1,6 @@
 {
-    "movieListPath": "C:\\Users\\Paul\\MovieDB\\MovieList.txt",
-    "libraryPath": "C:\\Users\\Paul\\MovieDB\\library",
+    "movieListPath": "",
+    "libraryPath": "",
     "processing": {
         "doProcessing": true
     },

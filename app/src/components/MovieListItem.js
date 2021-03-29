@@ -15,7 +15,7 @@ export default function MovieListItem(props) {
     const { movieStore } = useStore();
 
     const movie = props.data;
-    const thumbnail = `/thumbs/${movie._id}.jpg`;
+    const thumbnail = `/thumbs/${movie.imdbID}.jpg`;
 
     return (
         <div className="movie-list-item">
