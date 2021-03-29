@@ -23,8 +23,22 @@ class Movie {
     static async fetchMovieData() {
         return new Promise((resolve, reject) => {
             setTimeout(function() {
-                resolve(testData);
-            }, 1000);
+
+                if(!testData.hasOwnProperty('Response') || testData.Response === 'False') {
+                    reject('no response');
+                    return;
+                }
+
+                const returnData = Object.assign({}, testData);
+
+                // Split Genres into array
+                returnData.Genre = returnData.Genre.replace(/,\s+/g, ',').split(',');
+                
+                // Split Actors into array
+                returnData.Actors = returnData.Actors.replace(/,\s+/g, ',').split(',');
+
+                resolve(returnData);
+            }, 200);
         });
     }
 }

@@ -12,18 +12,30 @@ function append(item) {
 }
 
 async function process(item) {
+    return new Promise(async (resolve, reject) => {
 
-    const movieData = await Movie.fetchMovieData();
+        let movieData;
 
-    const movie = Object.assign(item, movieData);
+        try {
+            movieData = await Movie.fetchMovieData();
+        }
+        catch(err) {
+            reject(err);
+            return;
+        }
 
-    movie.processed = true;
+        const movie = Object.assign(item, movieData);
 
-    await database.update(database.store.movies, { _id: movie._id }, movie);
+        movie.processed = true;
 
-    numProcessed++;
-    const total = (queue.length + numProcessed);
-    console.log(`--- (${numProcessed}/${total}) Processed - ${movie.name}`);
+        await database.update(database.store.movies, { _id: movie._id }, movie);
+
+        numProcessed++;
+        const total = (queue.length + numProcessed);
+        console.log(`--- (${numProcessed}/${total}) Processed - ${movie.name}`);
+
+        resolve();
+    });
 }
 
 function start() {
@@ -44,7 +56,7 @@ async function processLoop() {
             await process(item);
         }
         catch(error) {
-            logger.warn("Error processing video:", error.message);
+            console.warn(error);
         }
         item = queue.shift();
     }
