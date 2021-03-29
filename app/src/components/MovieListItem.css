@@ -29,6 +29,7 @@
 
 .movie-list-item > .details {
     margin-top: 10px;
+    cursor: default;
 }
 
 .movie-list-item > .details > .title {
@@ -41,13 +42,42 @@
     font-size: 12px;
     font-weight: 400;
     color: #696969;
+    margin-top:2px;
 }
 
-.movie-list-item > .details > .additional-details  {
+.movie-list-item > .details > .genre > div {
+    display:inline;
+}
+
+.movie-list-item > .details > .genre > div > span {
+    transition:all 200ms ease;
+}
+
+.movie-list-item > .details > .genre > div > span:hover {
+    color:#dadada;
+    cursor:pointer;
+}
+
+.movie-list-item > .details > .genre > div > i {
+    font-style: normal;
+    margin:0px 2px;
+}
+
+.movie-list-item > .details > .additional-details {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     font-size: 12px;
     font-weight: 400;
     color: #9a9a9a;
+    margin-top:2px;
+}
+
+.movie-list-item > .details > .additional-details > div {
+    transition:all 200ms ease;
+}
+
+.movie-list-item > .details > .additional-details > .year:hover {
+    cursor:pointer;
+    color:#dadada;
 }
