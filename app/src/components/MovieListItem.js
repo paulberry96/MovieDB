@@ -12,43 +12,63 @@ function selectYear(e) {
 
 export default function MovieListItem(props) {
 
-    const { movieStore } = useStore();
-
     const movie = props.data;
+    const viewType = props.viewType;
     const thumbnail = `/thumbs/${movie.imdbID}.jpg`;
 
-    return (
-        <div className="movie-list-item">
-            <div className="image">
-                <img src={thumbnail} alt={movie.name} />
-                <div className="rating">
-                    {movie.imdbRating}
+    if(viewType === "grid-view") {
+        return (
+            <div className="movie-list-item">
+                <div className="image">
+                    <img src={thumbnail} alt={movie.name} />
+                    <div className="rating">
+                        {movie.imdbRating}
+                    </div>
+                </div>
+                <div className="details">
+                    <div className="title">
+                        {movie.Title}
+                    </div>
+                    <div className="genre">
+                        {movie.Genre.map((genre, i) => {
+                            return (
+                                <div key={genre} onClick={() => selectGenre(genre)}>
+                                    <span>{genre}</span>{i < movie.Genre.length - 1 ? <i>|</i> : null}
+                                </div>
+                            )
+                        })}
+                    </div>
+                    <div className="additional-details">
+                        <div className="year" onClick={() => selectYear(movie.Year)}>
+                            {movie.Year}
+                        </div>
+                        <div className="runtime">
+                            {movie.Runtime}
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div className="details">
+        );
+    }
+    else if(viewType === "list-view") {
+        return (
+            <div className="movie-list-item">
                 <div className="title">
-                    {movie.Title}
+                    {movie.name}
+                </div>
+                <div className="year">
+                    {movie.Year}
                 </div>
                 <div className="genre">
                     {movie.Genre.map((genre, i) => {
                         return (
                             <div key={genre} onClick={() => selectGenre(genre)}>
-                                <span>{genre}</span>
-                                {i < movie.Genre.length - 1 ? 
-                                <i>|</i> : null}
+                                <span>{genre}</span>{i < movie.Genre.length - 1 ? <i>,&nbsp;</i> : null}
                             </div>
                         )
                     })}
                 </div>
-                <div className="additional-details">
-                    <div className="year" onClick={() => selectYear(movie.Year)}>
-                        {movie.Year}
-                    </div>
-                    <div className="runtime">
-                        {movie.Runtime}
-                    </div>
-                </div>
             </div>
-        </div>
-    );
+        );
+    }
 }

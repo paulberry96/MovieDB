@@ -108,5 +108,5 @@ dist
 ideas/
 library/
 releases/
-config.json
-MovieList.txt
+/config.json
+/*.txt

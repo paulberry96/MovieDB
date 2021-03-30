@@ -9,27 +9,24 @@ export default class MovieStore {
         dir: 0
     };
 
-    viewType = "grid"; // Grid, List
-
-    constructor() {
+    constructor(rootStore) {
         makeObservable(this, {
             movies: observable,
             sort: observable,
-            viewType: observable,
 
             setMovies: action,
             sortMovies: action,
             toggleSortDir: action,
-
-            // Possibly for UI Store?
-            toggleView: action
         });
+
+        this.rootStore = rootStore;
 
         this.fetchMovieData();
     }
 
     async fetchMovieData() {
-        let url = '/api/movies';
+        
+        const url = '/api/movies';
 
         try {
             const response = await fetch(url);
@@ -53,9 +50,5 @@ export default class MovieStore {
 
     toggleSortDir = () => {
         this.sort.dir = 1 - this.sort.dir;
-    }
-
-    toggleView = () => {
-        this.viewType = (this.viewType === "grid" ? "list" : "grid");
     }
 }

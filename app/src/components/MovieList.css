@@ -1,15 +1,48 @@
 .movie-list-wrapper {
+	display:flex;
+	flex-direction: column;
 	padding: 20px 20px;
 }
 
-.movie-list-wrapper > .movie-list {
+.movie-list-wrapper.list-view {
+	max-height:100%;
+}
+
+.movie-list-wrapper > .movie-list.grid-view {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, 180px);
-	grid-gap: 15px 40px;
-	align-items: baseline;
+	grid-gap: 30px 40px;
+	align-items: flex-start;
 	justify-content: space-between;
-	margin: 0px;
-	list-style: none;
+	margin: 20px 0px 0px 0px;
+}
+
+.movie-list-wrapper > .movie-list.list-view {
+	display: grid;
+    grid-template-columns: minmax(200px, 1fr) minmax(min-content, 150px) 1fr;
+    margin-top: 20px;
+	overflow-y:scroll;
+}
+
+.movie-list-wrapper > .movie-list.list-view > .list-header {
+	display:contents;
+}
+
+.movie-list-wrapper > .movie-list.list-view > .list-header > div {
+	padding: 12px 15px;
+    background: #383838;
+	position:sticky;
+	top:0;
+}
+
+.movie-list-wrapper > .movie-list.list-view > .list-header > div:not(:last-child) {
+	border-right: 2px solid #222;
+}
+
+.movie-list-wrapper > .movie-list.list-view > .list-header > div:hover {
+	background:#444;
+	cursor:pointer;
+	color:#fff;
 }
 
 .movie-list-wrapper > .action-bar {

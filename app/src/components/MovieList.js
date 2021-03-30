@@ -17,18 +17,18 @@ const sortOptions = [
 
 function MovieList() {
 
-	const { movieStore } = useStore();
+	const { movieStore, uiStore } = useStore();
 
 	return (
-		<div className="movie-list-wrapper">
+		<div className={`movie-list-wrapper ${uiStore.viewType}`}>
 			<div className="action-bar">
 				<div className="title">
 					<h3>{movieStore.movies.length}</h3><span>movies</span>
 				</div>
 				<div className="actions">
 					<div className="view-toggle">
-						<button onClick={movieStore.toggleView} className="btn-toggle-view">
-							<FontAwesomeIcon icon={movieStore.viewType === "grid" ? faTh : faList} />
+						<button onClick={uiStore.toggleView} className="btn-toggle-view">
+							<FontAwesomeIcon icon={uiStore.viewType === "grid-view" ? faTh : faList} />
 						</button>
 					</div>
 					<div className="sort">
@@ -39,10 +39,17 @@ function MovieList() {
 					</div>
 				</div>
 			</div>
-			<div className="movie-list">
+			<div className={`movie-list ${uiStore.viewType} v-scroll`}>
+				{(uiStore.viewType === "list-view") ?
+					<div className="list-header">
+						<div>Title</div>
+						<div>Year</div>
+						<div>Genre</div>
+					</div>
+				: null}
 				{
 					movieStore.movies.map(movieData => (
-						<MovieListItem key={movieData._id} data={movieData} />
+						<MovieListItem key={movieData._id} data={movieData} viewType={uiStore.viewType} />
 					))
 				}
 			</div>

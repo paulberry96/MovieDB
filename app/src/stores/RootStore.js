@@ -1,12 +1,15 @@
 import { createContext, useContext } from "react";
 import MovieStore from "./MovieStore";
+import UIStore from "./UIStore";
 
 class RootStore {
 
     movieStore;
+    uiStore;
 
     constructor() {
-        this.movieStore = new MovieStore();
+        this.movieStore = new MovieStore(this);
+        this.uiStore = new UIStore(this);
     }
 }
 
