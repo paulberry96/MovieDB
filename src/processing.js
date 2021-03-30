@@ -29,6 +29,7 @@ async function process(item) {
         const movie = Object.assign(item, movieData);
 
         movie.processed = true;
+        movie.dateProcessed = Date.now();
 
         await database.update(database.store.movies, { _id: movie._id }, movie);
 

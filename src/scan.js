@@ -23,7 +23,8 @@ async function scanMovieList() {
                 movie = {
                     _id: await database.getAutoId('movies'),
                     name: movieList[i],
-                    processed: false
+                    processed: false,
+                    dateAdded: Date.now()
                 };
                 await database.insert(database.store.movies, movie);
                 ProcessingQueue.append(movie);
