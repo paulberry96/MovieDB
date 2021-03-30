@@ -13,12 +13,12 @@ const { scanMovieList } = require('./scan');
 
 	try {
 		await loadConfig();
-		createLibPaths(['db', 'thumbnails']);
+		createLibPaths(['db', 'thumbs']);
 
 		app.get('/', function(req, res) {
 			res.sendFile(path.join(process.cwd(), 'app', 'index.html'));
 		});
-		app.use('/thumbs', express.static(libPath('thumbnails')));
+		app.use('/thumbs', express.static(libPath('thumbs')));
 		app.use('/api', api);
 		app.listen(port);
 		

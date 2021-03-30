@@ -81,7 +81,7 @@ class Movie {
         return new Promise(async (resolve, reject) => {
             if(movieData.hasOwnProperty('Poster') && movieData.Poster != "") {
                 const response = await fetch(movieData.Poster);
-                const filePath = path.join(libPath('thumbnails'), `${movieData.imdbID}.jpg`);
+                const filePath = path.join(libPath('thumbs'), `${movieData.imdbID}.jpg`);
                 const fileStream = fs.createWriteStream(filePath);
 
                 response.body.pipe(fileStream);
