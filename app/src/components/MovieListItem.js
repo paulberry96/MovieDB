@@ -1,6 +1,8 @@
 import React from "react";
 import { useStore } from "../stores/RootStore";
 import './MovieListItem.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faImage } from '@fortawesome/free-solid-svg-icons';
 
 function selectGenre(e) {
     console.log(e);
@@ -14,13 +16,19 @@ export default function MovieListItem(props) {
 
     const movie = props.data;
     const viewType = props.viewType;
-    const thumbnail = `/thumbs/${movie.imdbID}.jpg`;
+    const thumbnail = `/thumbs/${movie.thumbnail}`;
 
     if(viewType === "grid-view") {
         return (
             <div className="movie-list-item">
                 <div className="image">
-                    <img src={thumbnail} alt={movie.name} />
+                    {movie.thumbnail !== "" ?
+                        <img src={thumbnail} alt={movie.name} />
+                        :
+                        <div className="no-thumb">
+                            <FontAwesomeIcon icon={faImage} />
+                        </div>
+                    }
                     <div className="rating">
                         {movie.imdbRating}
                     </div>

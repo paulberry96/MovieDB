@@ -12,33 +12,20 @@ function append(item) {
 }
 
 async function process(item) {
-    return new Promise(async (resolve, reject) => {
 
-        let movieData;
+    const movieData = await Movie.fetchMovieData(item.name);
 
-        try {
-            movieData = await Movie.fetchMovieData(item.name);
+    const movie = Object.assign(item, movieData);
+    movie.processed = true;
+    movie.dateProcessed = Date.now();
 
-            await Movie.saveMoviePoster(movieData);
-        }
-        catch(err) {
-            reject(err);
-            return;
-        }
+    await database.update(database.store.movies, { _id: movie._id }, movie);
 
-        const movie = Object.assign(item, movieData);
+    numProcessed++;
+    const total = (queue.length + numProcessed);
+    console.log(`--- (${numProcessed}/${total}) Processed - ${movie.name}`);
 
-        movie.processed = true;
-        movie.dateProcessed = Date.now();
-
-        await database.update(database.store.movies, { _id: movie._id }, movie);
-
-        numProcessed++;
-        const total = (queue.length + numProcessed);
-        console.log(`--- (${numProcessed}/${total}) Processed - ${movie.name}`);
-
-        resolve();
-    });
+    return;
 }
 
 function start() {

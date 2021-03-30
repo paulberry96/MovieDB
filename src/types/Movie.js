@@ -22,66 +22,67 @@ class Movie {
     }
 
     static async fetchMovieData(movieName) {
-        return new Promise(async (resolve, reject) => {
-            const config = getConfig();
+        const config = getConfig();
 
-            if(!config.API_KEY) {
-                reject({ continue: false, message: "No API key provided." });
-                return;
-            }
+        if(!config.API_KEY) {
+            throw { continue: false, message: "No API key provided." };
+        }
 
-            const params = {
-                type: "movie",
-                plot: "full",
-                apikey: config.API_KEY
-            };
+        const params = {
+            type: "movie",
+            plot: "full",
+            apikey: config.API_KEY
+        };
 
-            // Try to parse name into format: Title (Year)
-            let regexp = /^(.+)\s?(?:\((\d{4})\))/;
-            let matches = movieName.match(regexp);
+        // Try to parse name into format: Title (Year)
+        let regexp = /^(.+)\s?(?:\((\d{4})\))/;
+        let matches = movieName.match(regexp);
+        
+        if(matches) {
+            params.t = matches[1].trim();
+            params.y = matches[2].trim();
+        }
+        else {
+            params.t = movieName.trim();
+        }
 
-            if(matches) {
-                params.t = matches[1].trim();
-                params.y = matches[2].trim();
-            }
-            else {
-                params.t = movieName.trim();
-            }
+        let url = "http://www.omdbapi.com/";
+        url += '?' + (new URLSearchParams(params).toString());
 
-            let url = "http://www.omdbapi.com/";
-            url += '?' + (new URLSearchParams(params).toString());
+        const response = await fetch(url);
+        let movieData = await response.json();
 
-            const response = await fetch(url);
-            const data = await response.json();
+        if(movieData.hasOwnProperty('Response') && movieData.Response === 'True') {
 
-            if(data.hasOwnProperty('Response') && data.Response === 'True') {
+            movieData = Movie.parseMovieData(movieData);
 
-                const movieData = Movie.parseMovieData(data);
+            movieData.thumbnail = await Movie.saveThumbnail(movieData.Poster, `${movieData.imdbID}.jpg`)
+                .catch(_ => '');
 
-                resolve(movieData);
-            }
-            else {
-                if(data.hasOwnProperty('Error') && data.Error === 'Invalid API key!') {
-                    reject({ continue: false, message: "Invalid API key" });
-                }
-                else {
-                    reject(data);
-                }
-            }
-        });
+            return movieData;
+        }
+        else {
+            if(movieData.hasOwnProperty('Error') && movieData.Error === 'Invalid API key!')
+                throw { continue: false, message: "Invalid API key" };
+            else
+                throw { continue: true, message: "No Response." };
+        }
     }
 
-    static async saveMoviePoster(movieData) {
-        return new Promise(async (resolve, reject) => {
-            if(movieData.hasOwnProperty('Poster') && movieData.Poster != "") {
-                const response = await fetch(movieData.Poster);
-                const filePath = path.join(libPath('thumbs'), `${movieData.imdbID}.jpg`);
-                const fileStream = fs.createWriteStream(filePath);
+    static async saveThumbnail(url, fileName) {
+        if(url === '')
+            return "";
 
-                response.body.pipe(fileStream);
-                response.body.on("error", reject);
-                fileStream.on("finish", resolve);
-            }
+        const response = await fetch(url);
+        const filePath = path.join(libPath('thumbs'), fileName);
+        const fileStream = fs.createWriteStream(filePath);
+
+        return await new Promise((resolve, reject) => {
+            response.body.pipe(fileStream);
+            response.body.on("error", reject);
+            fileStream.on("finish", () => {
+                resolve(fileName);
+            });
         });
     }
 
