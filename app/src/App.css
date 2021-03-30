@@ -21,7 +21,8 @@
 }
 
 .v-scroll::-webkit-scrollbar {
-	width: 14px
+	width: 14px;
+	height: 14px;
 }
 
 .v-scroll::-webkit-scrollbar-corner, .v-scroll::-webkit-scrollbar-track {

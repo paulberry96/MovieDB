@@ -19,9 +19,24 @@
 
 .movie-list-wrapper > .movie-list.list-view {
 	display: grid;
-    grid-template-columns: minmax(200px, 1fr) minmax(min-content, 150px) 1fr;
+    /* grid-template-columns: minmax(200px, 1fr) minmax(min-content, 150px) 1fr; */
+    grid-template-columns: minmax(min-content, 1fr) minmax(min-content, 1fr) minmax(min-content, 1fr);
     margin-top: 20px;
 	overflow-y:scroll;
+}
+
+.movie-list-wrapper > .movie-list.list-view::-webkit-scrollbar-thumb {
+	border:none;
+	border-left:3px solid transparent;
+	border-right:3px solid transparent;
+	border-radius:6px;
+}
+
+.movie-list-wrapper > .movie-list.list-view::-webkit-scrollbar-thumb:horizontal {
+	border:none;
+	border-top:3px solid transparent;
+	border-bottom:3px solid transparent;
+	border-radius:6px;
 }
 
 .movie-list-wrapper > .movie-list.list-view > .list-header {
@@ -29,7 +44,7 @@
 }
 
 .movie-list-wrapper > .movie-list.list-view > .list-header > div {
-	padding: 12px 15px;
+	padding: 16px 15px;
     background: #383838;
 	position:sticky;
 	top:0;
