@@ -32,9 +32,11 @@ class Movie {
 
             const params = {
                 type: "movie",
+                plot: "full",
                 apikey: config.API_KEY
             };
 
+            // Try to parse name into format: Title (Year)
             let regexp = /^(.+)\s?(?:\((\d{4})\))/;
             let matches = movieName.match(regexp);
 
