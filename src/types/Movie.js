@@ -7,8 +7,6 @@ const fetch = require('node-fetch');
 const { getConfig } = require('../config');
 const { libPath } = require('../utils');
 
-const testData = JSON.parse(fs.readFileSync('./testData.json', 'utf-8'));
-
 class Movie {
 
     static async getAll() {
