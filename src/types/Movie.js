@@ -51,20 +51,14 @@ class Movie {
             let url = "http://www.omdbapi.com/";
             url += '?' + (new URLSearchParams(params).toString());
 
-            console.log("fetching: ", url);
-
             const response = await fetch(url);
             const data = await response.json();
 
             if(data.hasOwnProperty('Response') && data.Response === 'True') {
 
-                // Split Genres into array
-                data.Genre = data.Genre.replace(/,\s+/g, ',').split(',');
+                const movieData = Movie.parseMovieData(data);
 
-                // Split Actors into array
-                data.Actors = data.Actors.replace(/,\s+/g, ',').split(',');
-
-                resolve(data);
+                resolve(movieData);
             }
             else {
                 if(data.hasOwnProperty('Error') && data.Error === 'Invalid API key!') {
@@ -89,6 +83,25 @@ class Movie {
                 fileStream.on("finish", resolve);
             }
         });
+    }
+
+    static parseMovieData(data) {
+        const movieData = Object.assign({}, data);
+        const arrayKeys = ['Genre', 'Actors'];
+        for(let key in movieData) {
+            if(!movieData.hasOwnProperty(key)) continue;
+
+            // Parse to string
+            if(arrayKeys.indexOf(key) === -1) {
+                movieData[key] = (movieData[key] !== 'N/A') ? movieData[key] : "";
+            }
+            // Parse to array
+            else {
+                movieData[key] = (movieData[key] !== 'N/A') ? movieData[key].replace(/,\s+/g, ',').split(',') : [];
+            }
+        }
+
+        return movieData;
     }
 }
 
