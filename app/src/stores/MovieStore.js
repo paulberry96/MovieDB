@@ -5,16 +5,17 @@ export default class MovieStore {
     movies = [];
 
     sort = {
-        value: "",
+        value: "Year",
         dir: 0,
         options: [
-            { value: 'Title', label: 'Title', sortDir: 0 },
-            { value: 'Year', label: 'Year', sortDir: 1 },
-            { value: 'imdbRating', label: 'Rating', sortDir: 1 },
-            { value: 'imdbVotes', label: 'Votes', sortDir: 1 },
-            { value: 'Runtime', label: 'Runtime', sortDir: 1 },
-            { value: 'Rated', label: 'Rated', sortDir: 1 },
-            { value: 'dateAdded', label: 'Date Added', sortDir: 1 }
+            { value: 'Title', label: 'Title', sortDir: 1, enabled: true },
+            { value: 'Year', label: 'Year', sortDir: 0, enabled: true },
+            { value: 'Genre', label: 'Genre', sortDir: 1, enabled: false },
+            { value: 'imdbRating', label: 'Rating', sortDir: 0, enabled: true },
+            { value: 'imdbVotes', label: 'Votes', sortDir: 0, enabled: true },
+            { value: 'Runtime', label: 'Runtime', sortDir: 0, enabled: true },
+            { value: 'Rated', label: 'Rated', sortDir: 0, enabled: true },
+            { value: 'dateAdded', label: 'Date Added', sortDir: 0, enabled: true }
         ]
     };
 
@@ -34,6 +35,7 @@ export default class MovieStore {
             sort: observable,
 
             setMovies: action,
+            setSortOption: action,
             sortMovies: action,
             toggleSortDir: action,
         });
@@ -59,22 +61,15 @@ export default class MovieStore {
 
     setMovies(movies) {
         this.movies = movies;
+        this.sortMovies();
     }
 
-    sortMovies = (opt) => {
-
-        let field;
-
-        if(!opt || !opt.value)
-            field = this.sort.value || "Title";
-        else
-            field = opt.value;
-
-        this.sort.value = field;
+    sortMovies = () => {
 
         const contentRatings = this.contentRatings;
 
-        const dir = this.sort.dir ^ this.sort.options.find(opt => opt.value === field).sortDir;
+        const field = this.sort.value;
+        const dir = this.sort.dir;
 
         let aV, bV, c;
         this.movies.sort((a, b) => {
@@ -95,10 +90,25 @@ export default class MovieStore {
             if(aV > bV) c = 1;
             if(bV > aV) c = -1;
 
-            c = (dir === 1) ? (c * -1) : c;
+            c = (dir === 0) ? (c * -1) : c;
 
             return c;
         });
+    }
+
+    setSortOption = (opt) => {
+
+        const sortOption = this.sort.options.find(o => o.value === opt.value);
+
+        if(sortOption.value !== this.sort.value) {
+            this.sort.value = sortOption.value;
+            this.sort.dir = sortOption.sortDir;
+
+            this.sortMovies();
+        }
+        else {
+            this.toggleSortDir();
+        }
     }
 
     toggleSortDir = () => {
