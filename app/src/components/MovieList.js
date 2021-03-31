@@ -3,17 +3,10 @@ import { observer } from "mobx-react";
 import { useStore } from "../stores/RootStore";
 import Dropdown from "react-dropdown";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSortAmountUp, faSortAmountDown, faTh, faList } from '@fortawesome/free-solid-svg-icons';
+import { faSortAmountUp, faSortAmountDownAlt, faTh, faList } from '@fortawesome/free-solid-svg-icons';
 import 'react-dropdown/style.css';
 import MovieListItem from "./MovieListItem";
 import './MovieList.css';
-
-const sortOptions = [
-	{ value: 'Title', label: 'Title' },
-	{ value: 'Year', label: 'Year' },
-	{ value: 'imdbRating', label: 'Rating' },
-	{ value: 'Runtime', label: 'Runtime' }
-];
 
 function MovieList() {
 
@@ -32,9 +25,9 @@ function MovieList() {
 						</button>
 					</div>
 					<div className="sort">
-						<Dropdown options={sortOptions} onChange={movieStore.sortMovies} value="" placeholder="Sort" />
+						<Dropdown options={movieStore.sort.options} onChange={movieStore.sortMovies} value="" placeholder="Sort" />
 						<button onClick={movieStore.toggleSortDir} className="btn-sort-dir">
-							<FontAwesomeIcon icon={movieStore.sort.dir === 0 ? faSortAmountUp : faSortAmountDown} />
+							<FontAwesomeIcon icon={movieStore.sort.dir === 0 ? faSortAmountUp : faSortAmountDownAlt} />
 						</button>
 					</div>
 				</div>
