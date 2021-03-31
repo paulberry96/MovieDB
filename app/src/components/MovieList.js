@@ -3,21 +3,16 @@ import { observer } from "mobx-react";
 import { useStore } from "../stores/RootStore";
 import Dropdown from "react-dropdown";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSortAmountUp, faSortAmountDown, faTh, faList } from '@fortawesome/free-solid-svg-icons';
+import { faTh, faList, faSortAmountUp, faSortAmountDownAlt, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import 'react-dropdown/style.css';
 import MovieListItem from "./MovieListItem";
 import './MovieList.css';
 
-const sortOptions = [
-	{ value: 'Title', label: 'Title' },
-	{ value: 'Year', label: 'Year' },
-	{ value: 'imdbRating', label: 'Rating' },
-	{ value: 'Runtime', label: 'Runtime' }
-];
-
 function MovieList() {
 
 	const { movieStore, uiStore } = useStore();
+
+	const sortOptions = movieStore.sort.options.filter(opt => opt.enabled === true);
 
 	return (
 		<div className={`movie-list-wrapper ${uiStore.viewType}`}>
@@ -32,21 +27,34 @@ function MovieList() {
 						</button>
 					</div>
 					<div className="sort">
-						<Dropdown options={sortOptions} onChange={movieStore.sortMovies} value="" placeholder="Sort" />
+						<Dropdown options={sortOptions} onChange={movieStore.setSortOption} value={movieStore.sort.value} placeholder="Sort" />
 						<button onClick={movieStore.toggleSortDir} className="btn-sort-dir">
-							<FontAwesomeIcon icon={movieStore.sort.dir === 0 ? faSortAmountUp : faSortAmountDown} />
+							<FontAwesomeIcon icon={movieStore.sort.dir === 1 ? faSortAmountDownAlt : faSortAmountUp} />
 						</button>
 					</div>
 				</div>
 			</div>
 			<div className={`movie-list ${uiStore.viewType} v-scroll`}>
+
 				{(uiStore.viewType === "list-view") ?
 					<div className="list-header">
-						<div>Title</div>
-						<div>Year</div>
-						<div>Genre</div>
+						{
+							movieStore.sort.options.map(opt => (
+								<div
+									key={opt.value}
+									onClick={() => { if(opt.enabled) movieStore.setSortOption(opt); }}
+									className={`${opt.enabled ? "sortable" : ""}`}>
+									<span>{opt.label}</span>
+									{opt.value === movieStore.sort.value ?
+										<FontAwesomeIcon className="sortArrow" icon={(movieStore.sort.dir === 0) ? faArrowUp : faArrowDown} />
+										: null
+									}
+								</div>
+							))
+						}
 					</div>
-				: null}
+					: null
+				}
 				{
 					movieStore.movies.map(movieData => (
 						<MovieListItem key={movieData._id} data={movieData} viewType={uiStore.viewType} />

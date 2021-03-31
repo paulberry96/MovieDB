@@ -76,6 +76,21 @@ export default function MovieListItem(props) {
                         )
                     })}
                 </div>
+                <div className="rating">
+                    {movie.imdbRating}
+                </div>
+                <div className="votes">
+                    {movie.imdbVotes}
+                </div>
+                <div className="runtime">
+                    {movie.Runtime}
+                </div>
+                <div className="rated">
+                    {movie.Rated}
+                </div>
+                <div className="dateAdded">
+                    {movie.dateAdded}
+                </div>
             </div>
         );
     }
