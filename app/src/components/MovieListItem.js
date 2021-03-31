@@ -59,6 +59,9 @@ export default function MovieListItem(props) {
         );
     }
     else if(viewType === "list-view") {
+
+        const formattedDate = (new Date(movie.dateAdded)).toLocaleDateString(undefined, { month:'short', year: 'numeric' });
+
         return (
             <div className="movie-list-item">
                 <div className="title">
@@ -89,7 +92,7 @@ export default function MovieListItem(props) {
                     {movie.Rated}
                 </div>
                 <div className="dateAdded">
-                    {movie.dateAdded}
+                    {formattedDate}
                 </div>
             </div>
         );
