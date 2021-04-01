@@ -1,48 +1,99 @@
 .filter-list-wrapper {
-    height:100%;
-    background: #333;
+	height: 100%;
+	background: #333;
 }
 
 .filter-list {
-    display: flex;
-    flex-direction: column;
-    width: 20vw;
+	display: flex;
+	flex-direction: column;
+	width: 14vw;
 }
 
 .filter-list > .title {
-    font-size: 20px;
-    color: #dadada;
-    padding: 15px;
+	font-size: 20px;
+	color: #dadada;
+	padding: 15px;
 }
 
 .filter-list > .filter-section {
-    flex-direction: row;
-    width: 100%;
-    padding: 5px 10px;
+	flex-direction: row;
+	width: 100%;
+	padding: 0px 10px;
 }
 
-.filter-list > .filter-section > div:first-child {
+/* .filter-list > .filter-section > div:first-child {
     border-radius: 4px 4px 0px 0px;
 }
 
 .filter-list > .filter-section > div:last-child {
     border-radius: 0px 0px 4px 4px;
-}
+} */
 
 .filter-section > .filter-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 15px;
-    background: #222;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 15px;
+	/* background: #222; */
+	background: #292929;
 }
 
 .filter-section > .filter-contents {
-    background: #292929;
-    height: 100px;
+	background: #292929;
+	/* height: 100px; */
+	padding: 5px 20px 20px 20px;
 }
 
 .filter-section > .filter-contents.shown {
-    padding:10px 15px;
+	padding: 10px 15px;
+}
+
+.slider-wrapper {
+	/* padding:0px 5px; */
+}
+
+.slider-values {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 10px;
+}
+
+.slider-values span {
+	font-size: 14px;
+	color: #888;
+	font-weight: 700;
+}
+
+.slider-wrapper > .rc-slider {
+	padding: 4px 0;
+}
+
+.rc-slider > .rc-slider-rail,
+.rc-slider > .rc-slider-track,
+.rc-slider > .rc-slider-step {
+	height: 6px;
+}
+
+.rc-slider > .rc-slider-rail {
+    background-color: #656565;
+}
+
+.rc-slider > .rc-slider-track {
+    background-color:#4aa0c7;
+}
+
+.rc-slider > .rc-slider-handle {
+    border:none;
+    margin-top:-4px;
+    cursor:pointer;
+}
+
+.rc-slider > .rc-slider-handle:active,
+.rc-slider > .rc-slider-handle.rc-slider-handle-dragging {
+    cursor:pointer;
+    box-shadow:none !important;
+    border:none;
 }

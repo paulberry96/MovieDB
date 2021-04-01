@@ -20,6 +20,7 @@ export default class MovieStore {
     };
 
     filter = {
+        loaded: false,
         fields: {
             "Year": { type: 'minmax' },
             "Genre": { type: 'list' },
@@ -48,8 +49,10 @@ export default class MovieStore {
         makeObservable(this, {
             movies: observable,
             sort: observable,
+            filter: observable,
 
             setMovies: action,
+            populateFilters: action,
             setSortOption: action,
             sortMovies: action,
             toggleSortDir: action,
@@ -117,6 +120,10 @@ export default class MovieStore {
                 }
             }
         }
+
+        this.rootStore.uiStore.initFilterDefaults(this.filter.fields);
+
+        this.filter.loaded = true;
     }
 
     sortMovies = () => {
@@ -149,6 +156,17 @@ export default class MovieStore {
 
             return c;
         });
+    }
+
+    getFilter(field, val) {
+
+        if(!this.filter.fields.hasOwnProperty(field))
+            return false;
+
+        if(!this.filter.fields[field].hasOwnProperty(val))
+            return false;
+
+        return this.filter.fields[field][val];
     }
 
     setSortOption = (opt) => {
