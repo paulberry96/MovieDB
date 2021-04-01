@@ -16,8 +16,13 @@
 
 .contents {
 	flex: 1 1 100%;
-	padding: 20px;
-	overflow-y: scroll;
+	max-height:100%;
+	overflow:hidden;
+}
+
+.v-scroll {
+	max-height:100%;
+	overflow-y:scroll;
 }
 
 .v-scroll-auto {
