@@ -19,6 +19,21 @@ export default class MovieStore {
         ]
     };
 
+    filter = {
+        fields: {
+            "Year": { type: 'minmax' },
+            "Genre": { type: 'list' },
+            "imdbRating": { type: 'minmax' },
+            "Runtime": { type: 'minmax' },
+            "imdbVotes": { type: 'minmax' },
+            "Rated": { type: 'single' },
+            "Country": { type: 'list' },
+            "Language": { type: 'list' },
+            "BoxOffice": { type: 'minmax' }
+        },
+        currentFilters: []
+    };
+
     // United States Ratings
     // https://www.primevideo.com/help/ref=atv_hp_nd_cnt?nodeId=GFGQU3WYEG6FSJFJ
     contentRatings = [
@@ -61,7 +76,47 @@ export default class MovieStore {
 
     setMovies(movies) {
         this.movies = movies;
+        this.populateFilters();
         this.sortMovies();
+    }
+
+    populateFilters = () => {
+        const movies = this.movies;
+        const length = movies.length;
+        let i, j, movie, fieldVal, parsedVal;
+        for(i = 0; i < length; i++) {
+            movie = movies[i];
+
+            for(let [fKey, fObj] of Object.entries(this.filter.fields)) {
+
+                fieldVal = movie[fKey];
+
+                if(fObj.type === 'minmax') {
+                    if(fieldVal === "") continue;
+                    parsedVal = Number(fieldVal.replace(/([^\d.])/g, ""));
+                    if(fObj.min !== undefined || fObj.max !== undefined) {
+                        fObj.min = (parsedVal < fObj.min) ? parsedVal : fObj.min;
+                        fObj.max = (parsedVal > fObj.max) ? parsedVal : fObj.max;
+                    }
+                    else {
+                        fObj.min = parsedVal;
+                        fObj.max = parsedVal;
+                    }
+                }
+                else if(fObj.type === 'list') {
+                    if(fObj.values === undefined) fObj.values = {};
+                    for(j = 0; j < fieldVal.length; j++) {
+                        parsedVal = fieldVal[j].trim();
+                        fObj.values[parsedVal] = (fObj.values.hasOwnProperty(parsedVal)) ? fObj.values[parsedVal] + 1 : 1;
+                    }
+                }
+                else if(fObj.type === 'single') {
+                    if(fObj.values === undefined) fObj.values = {};
+                    parsedVal = fieldVal.trim();
+                    fObj.values[parsedVal] = (fObj.values.hasOwnProperty(parsedVal)) ? fObj.values[parsedVal] + 1 : 1;
+                }
+            }
+        }
     }
 
     sortMovies = () => {
