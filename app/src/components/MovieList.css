@@ -125,8 +125,21 @@
 	border-radius: 0px 2px 2px 0px;
 }
 
-.movie-list-wrapper > .action-bar > .actions > .sort > .btn-toggle-view {
+.movie-list-wrapper > .action-bar > .actions > .view-toggle {
+	border: 1px solid #444;
+    padding: 3px;
+    border-radius: 4px;
+}
+
+.movie-list-wrapper > .action-bar > .actions > .view-toggle > .btn-toggle-view {
 	border-radius: 2px;
+	background:#222;
+	color:#444;
+}
+
+.movie-list-wrapper > .action-bar > .actions > .view-toggle > .btn-toggle-view.selected {
+	background:#444;
+	color:#dadada;
 }
 
 .Dropdown-control {

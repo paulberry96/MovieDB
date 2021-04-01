@@ -22,8 +22,11 @@ function MovieList() {
 				</div>
 				<div className="actions">
 					<div className="view-toggle">
-						<button onClick={uiStore.toggleView} className="btn-toggle-view">
-							<FontAwesomeIcon icon={uiStore.viewType === "grid-view" ? faTh : faList} />
+						<button onClick={uiStore.toggleView} className={`btn-toggle-view${uiStore.viewType === "grid-view" ? " selected" : ""}`}>
+							<FontAwesomeIcon icon={faTh} />
+						</button>
+						<button onClick={uiStore.toggleView} className={`btn-toggle-view${uiStore.viewType === "list-view" ? " selected" : ""}`}>
+							<FontAwesomeIcon icon={faList} />
 						</button>
 					</div>
 					<div className="sort">
