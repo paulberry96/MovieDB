@@ -79,6 +79,7 @@
 	flex-direction: row;
 	justify-content: space-between;
 	line-height:34px;
+	align-items: center;
 }
 
 .movie-list-wrapper > .action-bar > .title > div {
@@ -113,6 +114,7 @@
 	cursor: pointer;
 	outline: none;
 	border: none;
+	border-radius: 2px;
 	transition: all 200ms ease;
 }
 

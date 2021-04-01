@@ -2,7 +2,8 @@ import React from "react";
 import { observer } from "mobx-react";
 import { useStore } from "../stores/RootStore";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTh, faList, faSortAmountUp, faSortAmountDownAlt, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
+import { faTh, faList, faFilter, faSortAmountUp, faSortAmountDownAlt, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
+import 'react-dropdown/style.css';
 import MovieListItem from "./MovieListItem";
 import './MovieList.css';
 
@@ -27,6 +28,11 @@ function MovieList() {
 						</button>
 						<button onClick={uiStore.toggleView} className={`btn-toggle-view${uiStore.viewType === "list-view" ? " selected" : ""}`}>
 							<FontAwesomeIcon icon={faList} />
+						</button>
+					</div>
+					<div className="filter">
+						<button onClick={uiStore.toggleFilters} className="btn-filter">
+							<FontAwesomeIcon icon={faFilter} />
 						</button>
 					</div>
 					<div className="sort">
