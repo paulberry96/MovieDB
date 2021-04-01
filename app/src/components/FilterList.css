@@ -1,0 +1,48 @@
+.filter-list-wrapper {
+    height:100%;
+    background: #333;
+}
+
+.filter-list {
+    display: flex;
+    flex-direction: column;
+    width: 20vw;
+}
+
+.filter-list > .title {
+    font-size: 20px;
+    color: #dadada;
+    padding: 15px;
+}
+
+.filter-list > .filter-section {
+    flex-direction: row;
+    width: 100%;
+    padding: 5px 10px;
+}
+
+.filter-list > .filter-section > div:first-child {
+    border-radius: 4px 4px 0px 0px;
+}
+
+.filter-list > .filter-section > div:last-child {
+    border-radius: 0px 0px 4px 4px;
+}
+
+.filter-section > .filter-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background: #222;
+}
+
+.filter-section > .filter-contents {
+    background: #292929;
+    height: 100px;
+}
+
+.filter-section > .filter-contents.shown {
+    padding:10px 15px;
+}

@@ -6,6 +6,7 @@ import { faTh, faList, faFilter, faSortAmountUp, faSortAmountDownAlt, faArrowUp,
 import 'react-dropdown/style.css';
 import MovieListItem from "./MovieListItem";
 import './MovieList.css';
+import FilterList from "./FilterList";
 
 import Dropdown from "./Dropdown";
 
@@ -18,7 +19,7 @@ function MovieList() {
 	return (
 		<div className={`movie-list-wrapper ${uiStore.viewType}`}>
 			<div className="section-left">
-				<div className="filter-wrapper"></div>
+				<FilterList />
 			</div>
 			<div className="section-right">
 				<div className="action-bar">
