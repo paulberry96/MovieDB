@@ -88,7 +88,7 @@ class Movie {
 
     static parseMovieData(data) {
         const movieData = Object.assign({}, data);
-        const arrayKeys = ['Genre', 'Actors'];
+        const arrayKeys = ['Actors', 'Country', 'Director', 'Genre', 'Language', 'Writer'];
         for(let key in movieData) {
             if(!movieData.hasOwnProperty(key)) continue;
 
@@ -98,7 +98,7 @@ class Movie {
             }
             // Parse to array
             else {
-                movieData[key] = (movieData[key] !== 'N/A') ? movieData[key].replace(/,\s+/g, ',').split(',') : [];
+                movieData[key] = (movieData[key] !== 'N/A') ? movieData[key].replace(/(\s?)+,(\s?)+/g, ',').split(',') : [];
             }
         }
 
