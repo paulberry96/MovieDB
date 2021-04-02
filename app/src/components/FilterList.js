@@ -26,14 +26,14 @@ function FilterList() {
                         <div className="filter-contents">
                             <div className="slider-wrapper">
                                 <Range allowCross={true}
-                                    min={movieStore.getFilter("Year", "min") || 0}
-                                    max={movieStore.getFilter("Year", "max") || 0}
-                                    defaultValue={[movieStore.getFilter("Year", "min") || 0, movieStore.getFilter("Year", "max") || 0]}
+                                    min={movieStore.filter.fields.Year.min}
+                                    max={movieStore.filter.fields.Year.max}
+                                    defaultValue={[movieStore.filter.fields.Year.min, movieStore.filter.fields.Year.max]}
                                     onChange={(val) => { uiStore.onFilterValueChange("Year", val) }} />
                             </div>
                             <div className="slider-values">
-                                <span>{uiStore.filterValues["Year"][0]}</span>
-                                <span>{uiStore.filterValues["Year"][1]}</span>
+                                <span>{uiStore.filterValues.Year[0]}</span>
+                                <span>{uiStore.filterValues.Year[1]}</span>
                             </div>
                         </div>
                     </div>

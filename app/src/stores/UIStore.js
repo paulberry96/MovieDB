@@ -31,9 +31,6 @@ export default class UIStore {
 
     initFilterDefaults = (fields) => {
         for(let [fKey, fObj] of Object.entries(fields)) {
-
-            this.filterValues[fKey] = {};
-
             if(fObj['type'] === "minmax") {
                 this.filterValues[fKey] = [fObj.min, fObj.max];
             }
