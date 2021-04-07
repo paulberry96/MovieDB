@@ -43,11 +43,4 @@ export default class UIStore {
     onFilterValueChange(filter, value) {
         this.filterValues[filter] = value;
     }
-
-    getFilterValue(filter) {
-        if(!this.filterValues.hasOwnProperty(filter))
-            return false;
-
-        return this.filterValues[filter];
-    }
 }

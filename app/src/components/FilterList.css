@@ -7,6 +7,8 @@
 	display: flex;
 	flex-direction: column;
 	width: 14vw;
+	height:100%;
+	padding-bottom:20px;
 }
 
 .filter-list > .title {
@@ -18,16 +20,9 @@
 .filter-list > .filter-section {
 	flex-direction: row;
 	width: 100%;
-	padding: 0px 10px;
+	padding-left:14px;
+	padding-right: 4px;
 }
-
-/* .filter-list > .filter-section > div:first-child {
-    border-radius: 4px 4px 0px 0px;
-}
-
-.filter-list > .filter-section > div:last-child {
-    border-radius: 0px 0px 4px 4px;
-} */
 
 .filter-section > .filter-header {
 	display: flex;
@@ -49,8 +44,17 @@
 	padding: 10px 15px;
 }
 
-.slider-wrapper {
-	/* padding:0px 5px; */
+.filter-contents > .dropdown {
+	width:100%;
+}
+
+.filter-contents > .dropdown > .dropdown-value {
+	border-radius:2px;
+}
+
+.filter-contents > .dropdown > .dropdown-menu {
+	max-height:304px;
+	border-radius:2px;
 }
 
 .slider-values {

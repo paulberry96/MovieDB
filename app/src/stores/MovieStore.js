@@ -1,3 +1,4 @@
+import { toJS } from "mobx";
 import { makeObservable, observable, action } from "mobx";
 
 export default class MovieStore {
@@ -24,10 +25,10 @@ export default class MovieStore {
         fields: {
             "Year": { type: 'minmax' },
             "Genre": { type: 'list' },
-            "imdbRating": { type: 'minmax' },
+            "imdbRating": { type: 'minmax', emptyVal: 0 },
             "Runtime": { type: 'minmax' },
             "imdbVotes": { type: 'minmax' },
-            "Rated": { type: 'single' },
+            "Rated": { type: 'single', emptyVal: "Unrated" },
             "Country": { type: 'list' },
             "Language": { type: 'list' },
             "BoxOffice": { type: 'minmax' }
@@ -86,7 +87,7 @@ export default class MovieStore {
     populateFilters = () => {
         const movies = this.movies;
         const length = movies.length;
-        let i, j, movie, fieldVal, parsedVal;
+        let i, j, movie, fieldVal, parsedVal, foundObj;
         for(i = 0; i < length; i++) {
             movie = movies[i];
 
@@ -95,8 +96,11 @@ export default class MovieStore {
                 fieldVal = movie[fKey];
 
                 if(fObj.type === 'minmax') {
-                    if(fieldVal === "") continue;
-                    parsedVal = Number(fieldVal.replace(/([^\d.])/g, ""));
+                    if(fieldVal[j] !== "" || fObj.emptyVal === undefined)
+                        parsedVal = Number(fieldVal.replace(/([^\d.])/g, ""));
+                    else
+                        parsedVal = fObj.emptyVal;
+
                     if(fObj.min !== undefined || fObj.max !== undefined) {
                         fObj.min = (parsedVal < fObj.min) ? parsedVal : fObj.min;
                         fObj.max = (parsedVal > fObj.max) ? parsedVal : fObj.max;
@@ -107,16 +111,36 @@ export default class MovieStore {
                     }
                 }
                 else if(fObj.type === 'list') {
-                    if(fObj.values === undefined) fObj.values = {};
+                    if(fObj.values === undefined) fObj.values = [];
                     for(j = 0; j < fieldVal.length; j++) {
-                        parsedVal = fieldVal[j].trim();
-                        fObj.values[parsedVal] = (fObj.values.hasOwnProperty(parsedVal)) ? fObj.values[parsedVal] + 1 : 1;
+
+                        if(fieldVal[j].trim() !== "" || fObj.emptyVal === undefined)
+                            parsedVal = fieldVal[j].trim();
+                        else
+                            parsedVal = fObj.emptyVal;
+
+                        foundObj = fObj.values.find(o => o.value === parsedVal);
+
+                        if(foundObj)
+                            foundObj.count++;
+                        else
+                            fObj.values.push({ value: parsedVal, label: parsedVal, count: 1 });
                     }
                 }
                 else if(fObj.type === 'single') {
-                    if(fObj.values === undefined) fObj.values = {};
-                    parsedVal = fieldVal.trim();
-                    fObj.values[parsedVal] = (fObj.values.hasOwnProperty(parsedVal)) ? fObj.values[parsedVal] + 1 : 1;
+                    if(fObj.values === undefined) fObj.values = [];
+
+                    if(fieldVal.trim() !== "" || fObj.emptyVal === undefined)
+                        parsedVal = fieldVal.trim();
+                    else
+                        parsedVal = fObj.emptyVal;
+
+                    foundObj = fObj.values.find(o => o.value === parsedVal);
+
+                    if(foundObj)
+                        foundObj.count++;
+                    else
+                        fObj.values.push({ value: parsedVal, label: parsedVal, count: 1 });
                 }
             }
         }
@@ -156,17 +180,6 @@ export default class MovieStore {
 
             return c;
         });
-    }
-
-    getFilter(field, val) {
-
-        if(!this.filter.fields.hasOwnProperty(field))
-            return false;
-
-        if(!this.filter.fields[field].hasOwnProperty(val))
-            return false;
-
-        return this.filter.fields[field][val];
     }
 
     setSortOption = (opt) => {

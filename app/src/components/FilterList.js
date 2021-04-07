@@ -1,12 +1,28 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { observer } from "mobx-react";
 import { useStore } from "../stores/RootStore";
 import './FilterList.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
-
 import { Range } from 'rc-slider';
 import 'rc-slider/assets/index.css';
+import Dropdown from "./Dropdown";
+
+function nFormatter(num, digits) {
+    var si = [
+        { value: 1, symbol: "" },
+        { value: 1E3, symbol: "k" },
+        { value: 1E6, symbol: "M" },
+        { value: 1E9, symbol: "B" },
+        { value: 1E12, symbol: "T" }
+    ];
+    var rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
+    var i;
+    for(i = si.length - 1; i > 0; i--) {
+        if(num >= si[i].value) {
+            break;
+        }
+    }
+    return (num / si[i].value).toFixed(digits).replace(rx, "$1") + si[i].symbol;
+}
 
 function FilterList() {
 
@@ -15,7 +31,7 @@ function FilterList() {
     return (
         <div className="filter-list-wrapper">
             {(movieStore.filter.loaded) ?
-                <div className="filter-list">
+                <div className="filter-list v-scroll">
                     <div className="title">Filters</div>
                     <div className="filter-section">
                         <div className="filter-header">
@@ -42,7 +58,7 @@ function FilterList() {
                             <div className="filter-title"><span>Genre</span></div>
                         </div>
                         <div className="filter-contents">
-
+                            <Dropdown options={movieStore.filter.fields.Genre.values} value="" placeholder="Select Genre" menuClassName=" v-scroll v-scroll-auto" searchable />
                         </div>
                     </div>
                     <div className="filter-section">
@@ -50,7 +66,98 @@ function FilterList() {
                             <div className="filter-title"><span>Rating</span></div>
                         </div>
                         <div className="filter-contents">
-
+                            <div className="slider-wrapper">
+                                <Range allowCross={true}
+                                    min={movieStore.filter.fields.imdbRating.min}
+                                    max={movieStore.filter.fields.imdbRating.max}
+                                    step={0.1}
+                                    defaultValue={[movieStore.filter.fields.imdbRating.min, movieStore.filter.fields.imdbRating.max]}
+                                    onChange={(val) => { uiStore.onFilterValueChange("imdbRating", val) }} />
+                            </div>
+                            <div className="slider-values">
+                                <span>{uiStore.filterValues.imdbRating[0]}</span>
+                                <span>{uiStore.filterValues.imdbRating[1]}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="filter-section">
+                        <div className="filter-header">
+                            <div className="filter-title"><span>Runtime</span></div>
+                        </div>
+                        <div className="filter-contents">
+                            <div className="slider-wrapper">
+                                <Range allowCross={true}
+                                    min={movieStore.filter.fields.Runtime.min}
+                                    max={movieStore.filter.fields.Runtime.max}
+                                    defaultValue={[movieStore.filter.fields.Runtime.min, movieStore.filter.fields.Runtime.max]}
+                                    onChange={(val) => { uiStore.onFilterValueChange("Runtime", val) }} />
+                            </div>
+                            <div className="slider-values">
+                                <span>{uiStore.filterValues.Runtime[0]} mins</span>
+                                <span>{uiStore.filterValues.Runtime[1]} mins</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="filter-section">
+                        <div className="filter-header">
+                            <div className="filter-title"><span>Votes</span></div>
+                        </div>
+                        <div className="filter-contents">
+                            <div className="slider-wrapper">
+                                <Range allowCross={true}
+                                    min={movieStore.filter.fields.imdbVotes.min}
+                                    max={movieStore.filter.fields.imdbVotes.max}
+                                    step={1000}
+                                    defaultValue={[movieStore.filter.fields.imdbVotes.min, movieStore.filter.fields.imdbVotes.max]}
+                                    onChange={(val) => { uiStore.onFilterValueChange("imdbVotes", val) }} />
+                            </div>
+                            <div className="slider-values">
+                                <span>{nFormatter(uiStore.filterValues.imdbVotes[0], 1)}</span>
+                                <span>{nFormatter(uiStore.filterValues.imdbVotes[1], 1)}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="filter-section">
+                        <div className="filter-header">
+                            <div className="filter-title"><span>Rated</span></div>
+                        </div>
+                        <div className="filter-contents">
+                            <Dropdown options={movieStore.filter.fields.Rated.values} value="" placeholder="Select Content Rating" menuClassName=" v-scroll v-scroll-auto" />
+                        </div>
+                    </div>
+                    <div className="filter-section">
+                        <div className="filter-header">
+                            <div className="filter-title"><span>Country</span></div>
+                        </div>
+                        <div className="filter-contents">
+                            <Dropdown options={movieStore.filter.fields.Country.values} value="" placeholder="Select Country" menuClassName=" v-scroll v-scroll-auto" searchable />
+                        </div>
+                    </div>
+                    <div className="filter-section">
+                        <div className="filter-header">
+                            <div className="filter-title"><span>Language</span></div>
+                        </div>
+                        <div className="filter-contents">
+                            <Dropdown options={movieStore.filter.fields.Language.values} value="" placeholder="Select Language" menuClassName=" v-scroll v-scroll-auto" searchable/>
+                        </div>
+                    </div>
+                    <div className="filter-section">
+                        <div className="filter-header">
+                            <div className="filter-title"><span>Box Office</span></div>
+                        </div>
+                        <div className="filter-contents">
+                            <div className="slider-wrapper">
+                                <Range allowCross={true}
+                                    min={movieStore.filter.fields.BoxOffice.min}
+                                    max={movieStore.filter.fields.BoxOffice.max}
+                                    step={1000000}
+                                    defaultValue={[movieStore.filter.fields.BoxOffice.min, movieStore.filter.fields.BoxOffice.max]}
+                                    onChange={(val) => { uiStore.onFilterValueChange("BoxOffice", val) }} />
+                            </div>
+                            <div className="slider-values">
+                                <span>{"$" + nFormatter(uiStore.filterValues.BoxOffice[0], 1)}</span>
+                                <span>{"$" + nFormatter(uiStore.filterValues.BoxOffice[1], 1)}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
