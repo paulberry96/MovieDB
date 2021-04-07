@@ -20,6 +20,10 @@
 	overflow-y: scroll;
 }
 
+.v-scroll-auto {
+	overflow-y:auto;
+}
+
 .v-scroll::-webkit-scrollbar {
 	width: 14px;
 	height: 14px;

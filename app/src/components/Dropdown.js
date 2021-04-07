@@ -8,7 +8,7 @@ class Dropdown extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			selected: this.parseValue(this.props.value),
+			selected: this.parseValue(this.props.value) || { value: '', label: '' },
 			isOpen: false,
 			searchVal: "",
 			searchResults: []
@@ -23,7 +23,7 @@ class Dropdown extends Component {
 			this.inputRef = createRef();
 			this.fuse = new Fuse(this.props.options, {
 				threshold: 0.4,
-				keys: [ 'label' ]
+				keys: ['label']
 			});
 			this.handleSearchInput = this.handleSearchInput.bind(this);
 		}
@@ -108,6 +108,8 @@ class Dropdown extends Component {
 		const options = this.props.options;
 
 		const inputValue = isOpen ? searchVal : selected.label;
+		
+		const menuClassName = `dropdown-menu${(isOpen) ? " shown" : ""}` + (this.props.menuClassName || "");
 
 		return (
 			<div className="dropdown" ref={this.dropdownRef}>
@@ -115,12 +117,12 @@ class Dropdown extends Component {
 					{(this.props.searchable) ?
 						<input className="dropdown-input" ref={this.inputRef} value={inputValue} placeholder={this.props.placeholder || ""} onChange={this.handleSearchInput} />
 						:
-						<span className="dropdown-input"> {selected.label} </span>
+						<input className="dropdown-input" value={selected.label || ""} placeholder={this.props.placeholder} readOnly />
 					}
 					<FontAwesomeIcon icon={isOpen ? faCaretUp : faCaretDown} className="icon" />
 				</div>
 				{ isOpen ?
-					<div className={`dropdown-menu${(isOpen) ? " shown" : ""}`}>
+					<div className={menuClassName}>
 						{options.map((opt) => {
 							return (searchVal === "" || searchResults.indexOf(opt.value) > -1) ?
 								<div key={opt.value} className={`dropdown-option${(opt.value === selected.value) ? " active" : ""}`} onClick={this.setValue.bind(this, opt.value)}>
