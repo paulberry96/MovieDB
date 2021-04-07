@@ -3,7 +3,6 @@ import { observer } from "mobx-react";
 import { useStore } from "../stores/RootStore";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTh, faList, faFilter, faSortAmountUp, faSortAmountDownAlt, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
-import 'react-dropdown/style.css';
 import MovieListItem from "./MovieListItem";
 import './MovieList.css';
 import FilterList from "./FilterList";
