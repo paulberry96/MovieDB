@@ -78,9 +78,10 @@
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+	line-height:34px;
 }
 
-.movie-list-wrapper > .action-bar > .title > h3 {
+.movie-list-wrapper > .action-bar > .title > div {
 	display: inline-block;
 	font-size: 20px;
 	color: #fafafa;
