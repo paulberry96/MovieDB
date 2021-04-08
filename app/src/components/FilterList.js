@@ -32,7 +32,10 @@ function FilterList() {
         <div className="filter-list-wrapper">
             {(movieStore.filter.loaded) ?
                 <div className="filter-list v-scroll">
-                    <div className="title">Filters</div>
+                    <div className="title">
+                        <span>Filters</span>
+                        <button className="btn" onClick={uiStore.resetAllFilters}>Clear all</button>
+                    </div>
                     <div className="filter-section">
                         <div className="filter-header">
                             <div className="filter-title">
@@ -58,7 +61,7 @@ function FilterList() {
                             <div className="filter-title"><span>Genre</span></div>
                         </div>
                         <div className="filter-contents">
-                            <Dropdown options={movieStore.filter.fields.Genre.values} value="" placeholder="Select Genre" menuClassName=" v-scroll v-scroll-auto" searchable />
+                            <Dropdown options={movieStore.filter.fields.Genre.values} value="" placeholder="Select Genre" menuClassName=" v-scroll v-scroll-auto" searchable multi />
                         </div>
                     </div>
                     <div className="filter-section">
@@ -122,7 +125,7 @@ function FilterList() {
                             <div className="filter-title"><span>Rated</span></div>
                         </div>
                         <div className="filter-contents">
-                            <Dropdown options={movieStore.filter.fields.Rated.values} value="" placeholder="Select Content Rating" menuClassName=" v-scroll v-scroll-auto" />
+                            <Dropdown options={movieStore.filter.fields.Rated.values} value="" placeholder="Select Rating" menuClassName=" v-scroll v-scroll-auto" multi />
                         </div>
                     </div>
                     <div className="filter-section">
@@ -130,7 +133,7 @@ function FilterList() {
                             <div className="filter-title"><span>Country</span></div>
                         </div>
                         <div className="filter-contents">
-                            <Dropdown options={movieStore.filter.fields.Country.values} value="" placeholder="Select Country" menuClassName=" v-scroll v-scroll-auto" searchable />
+                            <Dropdown options={movieStore.filter.fields.Country.values} value="" placeholder="Select Country" menuClassName=" v-scroll v-scroll-auto" searchable multi />
                         </div>
                     </div>
                     <div className="filter-section">
@@ -138,7 +141,7 @@ function FilterList() {
                             <div className="filter-title"><span>Language</span></div>
                         </div>
                         <div className="filter-contents">
-                            <Dropdown options={movieStore.filter.fields.Language.values} value="" placeholder="Select Language" menuClassName=" v-scroll v-scroll-auto" searchable/>
+                            <Dropdown options={movieStore.filter.fields.Language.values} value="" placeholder="Select Language" menuClassName=" v-scroll v-scroll-auto" searchable multi />
                         </div>
                     </div>
                     <div className="filter-section">

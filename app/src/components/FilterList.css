@@ -14,7 +14,15 @@
 .filter-list > .title {
 	font-size: 20px;
 	color: #dadada;
-	padding: 15px;
+	padding: 15px 4px 15px 15px;
+	display:flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.filter-list > .title > .btn {
+	background-color:#444;
 }
 
 .filter-list > .filter-section {
