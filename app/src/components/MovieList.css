@@ -19,10 +19,13 @@
 	display: flex;
     flex-direction: column;
     flex: 1 1 100%;
+	overflow:hidden;
 }
 
 .movie-list-container.list-view {
 	margin-top:20px;
+	max-width: 100%;
+    overflow-x: auto;
 }
 
 .movie-list.grid-view {
