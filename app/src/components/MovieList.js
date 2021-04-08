@@ -27,21 +27,21 @@ function MovieList() {
 					</div>
 					<div className="actions">
 						<div className="view-toggle">
-							<button onClick={uiStore.toggleView} className={`btn-toggle-view${uiStore.viewType === "grid-view" ? " selected" : ""}`}>
+							<button onClick={uiStore.toggleView} className={`btn btn-toggle-view${uiStore.viewType === "grid-view" ? " selected" : ""}`}>
 								<FontAwesomeIcon icon={faTh} />
 							</button>
-							<button onClick={uiStore.toggleView} className={`btn-toggle-view${uiStore.viewType === "list-view" ? " selected" : ""}`}>
+							<button onClick={uiStore.toggleView} className={`btn btn-toggle-view${uiStore.viewType === "list-view" ? " selected" : ""}`}>
 								<FontAwesomeIcon icon={faList} />
 							</button>
 						</div>
 						<div className="filter">
-							<button onClick={uiStore.toggleFilters} className="btn-filter">
+							<button onClick={uiStore.toggleFilters} className="btn">
 								<FontAwesomeIcon icon={faFilter} />
 							</button>
 						</div>
 						<div className="sort">
 							<Dropdown options={sortOptions} onChange={movieStore.setSortOption} value={movieStore.sort.value} placeholder="Sort" />
-							<button onClick={movieStore.toggleSortDir} className="btn-sort-dir">
+							<button onClick={movieStore.toggleSortDir} className="btn btn-sort-dir">
 								<FontAwesomeIcon icon={movieStore.sort.dir === 1 ? faSortAmountDownAlt : faSortAmountUp} />
 							</button>
 						</div>

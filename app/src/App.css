@@ -20,6 +20,23 @@
 	overflow:hidden;
 }
 
+.btn {
+    font-size: 16px;
+    background-color: #3a3a3a;
+    color: #dadada;
+    padding: 5px 10px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    border-radius: 2px;
+    transition: all 200ms ease;
+}
+
+.btn:hover {
+	background: #444;
+	color: #fff;
+}
+
 .v-scroll {
 	max-height:100%;
 	overflow-y:scroll;
