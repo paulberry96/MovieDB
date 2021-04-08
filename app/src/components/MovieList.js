@@ -35,7 +35,7 @@ function MovieList() {
 							</button>
 						</div>
 						<div className="filter">
-							<button onClick={uiStore.toggleFilters} className="btn">
+							<button onClick={uiStore.toggleFilters} className={`btn${uiStore.filtersShown ? " selected" : ""}`}>
 								<FontAwesomeIcon icon={faFilter} />
 							</button>
 						</div>

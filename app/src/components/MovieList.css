@@ -138,15 +138,16 @@
 	border-radius: 4px;
 }
 
-.action-bar > .actions > .view-toggle > .btn-toggle-view {
+.action-bar .btn-toggle-view,
+.action-bar .btn-toggle-view:hover {
 	border-radius: 2px;
 	background: #222;
 	color: #444;
 }
 
-.action-bar > .actions > .view-toggle > .btn-toggle-view.selected {
-	background: #444;
-	color: #dadada;
+.action-bar .btn-toggle-view.selected:hover {
+	background: #4f788a;
+	color:#dadada;
 }
 
 .Dropdown-control {

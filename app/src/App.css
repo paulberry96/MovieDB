@@ -32,8 +32,18 @@
     transition: all 200ms ease;
 }
 
+.btn.selected {
+	background: #4f788a;
+	color: #dadada;
+}
+
 .btn:hover {
 	background: #444;
+	color: #fff;
+}
+
+.btn.selected:hover {
+	background: #508aa0;
 	color: #fff;
 }
 

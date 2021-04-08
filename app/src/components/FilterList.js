@@ -68,7 +68,7 @@ function FilterList() {
                                 value={uiStore.filterValues.Genre}
                                 onChange={(val) => { uiStore.onFilterValueChange('Genre', val, true) }}
                                 placeholder="Select Genre"
-                                menuClassName=" v-scroll v-scroll-auto"
+                                menuClassName="v-scroll v-scroll-auto"
                                 searchable multi />
                         </div>
                     </div>
@@ -144,7 +144,7 @@ function FilterList() {
                                 value={uiStore.filterValues.Rated}
                                 onChange={(val) => { uiStore.onFilterValueChange('Rated', val, true) }}
                                 placeholder="Select Rating"
-                                menuClassName=" v-scroll v-scroll-auto"
+                                menuClassName="v-scroll v-scroll-auto"
                                 multi />
                         </div>
                     </div>
@@ -158,7 +158,7 @@ function FilterList() {
                                 value={uiStore.filterValues.Country}
                                 onChange={(val) => { uiStore.onFilterValueChange('Country', val, true) }}
                                 placeholder="Select Country"
-                                menuClassName=" v-scroll v-scroll-auto"
+                                menuClassName="v-scroll v-scroll-auto"
                                 searchable multi />
                         </div>
                     </div>
@@ -172,7 +172,7 @@ function FilterList() {
                                 value={uiStore.filterValues.Language}
                                 onChange={(val) => { uiStore.onFilterValueChange('Language', val, true) }}
                                 placeholder="Select Language"
-                                menuClassName=" v-scroll v-scroll-auto"
+                                menuClassName="v-scroll v-scroll-auto"
                                 searchable multi />
                         </div>
                     </div>

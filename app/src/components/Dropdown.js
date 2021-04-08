@@ -158,7 +158,7 @@ class Dropdown extends Component {
 			else inputValue = selected.length > 0 ? selected[0].label : "";
 		}
 
-		const menuClassName = `dropdown-menu${(isOpen) ? " shown" : ""}` + (this.props.menuClassName || "");
+		const menuClassName = `dropdown-menu${(isOpen) ? " shown" : ""}` + (this.props.menuClassName ? ` ${this.props.menuClassName}` : "");
 
 		return (
 			<div className="dropdown" ref={this.dropdownRef}>

@@ -8,6 +8,7 @@
 	flex-direction: column;
 	width: 14vw;
 	height:100%;
+	min-width:240px;
 	padding-bottom:20px;
 }
 
@@ -38,14 +39,12 @@
 	justify-content: space-between;
 	align-items: center;
 	padding: 10px 15px;
-	/* background: #222; */
 	background: #292929;
 }
 
 .filter-section > .filter-contents {
 	background: #292929;
-	/* height: 100px; */
-	padding: 5px 20px 20px 20px;
+	padding: 5px 15px 20px 15px;
 }
 
 .filter-section > .filter-contents.shown {
