@@ -183,12 +183,14 @@ export default class MovieStore {
     }
 
     setSortOption = (opt) => {
+        if(Array.isArray(opt)) {
+            if(opt.length === 0) return;
+            opt = opt[0];
+        }
 
-        const sortOption = this.sort.options.find(o => o.value === opt.value);
-
-        if(sortOption.value !== this.sort.value) {
-            this.sort.value = sortOption.value;
-            this.sort.dir = sortOption.sortDir;
+        if(opt.value !== this.sort.value) {
+            this.sort.value = opt.value;
+            this.sort.dir = opt.sortDir;
 
             this.sortMovies();
         }
