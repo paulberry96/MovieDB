@@ -47,8 +47,10 @@ function FilterList() {
                                 <Range allowCross={true}
                                     min={movieStore.filter.fields.Year.min}
                                     max={movieStore.filter.fields.Year.max}
+                                    value={uiStore.filterValues.Year}
                                     defaultValue={[movieStore.filter.fields.Year.min, movieStore.filter.fields.Year.max]}
-                                    onChange={(val) => { uiStore.onFilterValueChange("Year", val) }} />
+                                    onChange={(val) => { uiStore.onFilterValueChange("Year", val) }}
+                                    onAfterChange={(val) => { uiStore.onFilterValueChange("Year", val, true) }} />
                             </div>
                             <div className="slider-values">
                                 <span>{uiStore.filterValues.Year[0]}</span>
@@ -61,7 +63,13 @@ function FilterList() {
                             <div className="filter-title"><span>Genre</span></div>
                         </div>
                         <div className="filter-contents">
-                            <Dropdown options={movieStore.filter.fields.Genre.values} value="" placeholder="Select Genre" menuClassName=" v-scroll v-scroll-auto" searchable multi />
+                            <Dropdown
+                                options={movieStore.filter.fields.Genre.values}
+                                value={uiStore.filterValues.Genre}
+                                onChange={(val) => { uiStore.onFilterValueChange('Genre', val, true) }}
+                                placeholder="Select Genre"
+                                menuClassName=" v-scroll v-scroll-auto"
+                                searchable multi />
                         </div>
                     </div>
                     <div className="filter-section">
@@ -74,8 +82,10 @@ function FilterList() {
                                     min={movieStore.filter.fields.imdbRating.min}
                                     max={movieStore.filter.fields.imdbRating.max}
                                     step={0.1}
+                                    value={uiStore.filterValues.imdbRating}
                                     defaultValue={[movieStore.filter.fields.imdbRating.min, movieStore.filter.fields.imdbRating.max]}
-                                    onChange={(val) => { uiStore.onFilterValueChange("imdbRating", val) }} />
+                                    onChange={(val) => { uiStore.onFilterValueChange("imdbRating", val) }}
+                                    onAfterChange={(val) => { uiStore.onFilterValueChange("imdbRating", val, true) }} />
                             </div>
                             <div className="slider-values">
                                 <span>{uiStore.filterValues.imdbRating[0]}</span>
@@ -92,8 +102,10 @@ function FilterList() {
                                 <Range allowCross={true}
                                     min={movieStore.filter.fields.Runtime.min}
                                     max={movieStore.filter.fields.Runtime.max}
+                                    value={uiStore.filterValues.Runtime}
                                     defaultValue={[movieStore.filter.fields.Runtime.min, movieStore.filter.fields.Runtime.max]}
-                                    onChange={(val) => { uiStore.onFilterValueChange("Runtime", val) }} />
+                                    onChange={(val) => { uiStore.onFilterValueChange("Runtime", val) }}
+                                    onAfterChange={(val) => { uiStore.onFilterValueChange("Runtime", val, true) }} />
                             </div>
                             <div className="slider-values">
                                 <span>{uiStore.filterValues.Runtime[0]} mins</span>
@@ -111,8 +123,10 @@ function FilterList() {
                                     min={movieStore.filter.fields.imdbVotes.min}
                                     max={movieStore.filter.fields.imdbVotes.max}
                                     step={1000}
+                                    value={uiStore.filterValues.imdbVotes}
                                     defaultValue={[movieStore.filter.fields.imdbVotes.min, movieStore.filter.fields.imdbVotes.max]}
-                                    onChange={(val) => { uiStore.onFilterValueChange("imdbVotes", val) }} />
+                                    onChange={(val) => { uiStore.onFilterValueChange("imdbVotes", val) }}
+                                    onAfterChange={(val) => { uiStore.onFilterValueChange("imdbVotes", val, true) }} />
                             </div>
                             <div className="slider-values">
                                 <span>{nFormatter(uiStore.filterValues.imdbVotes[0], 1)}</span>
@@ -125,7 +139,13 @@ function FilterList() {
                             <div className="filter-title"><span>Rated</span></div>
                         </div>
                         <div className="filter-contents">
-                            <Dropdown options={movieStore.filter.fields.Rated.values} value="" placeholder="Select Rating" menuClassName=" v-scroll v-scroll-auto" multi />
+                            <Dropdown
+                                options={movieStore.filter.fields.Rated.values}
+                                value={uiStore.filterValues.Rated}
+                                onChange={(val) => { uiStore.onFilterValueChange('Rated', val, true) }}
+                                placeholder="Select Rating"
+                                menuClassName=" v-scroll v-scroll-auto"
+                                multi />
                         </div>
                     </div>
                     <div className="filter-section">
@@ -133,7 +153,13 @@ function FilterList() {
                             <div className="filter-title"><span>Country</span></div>
                         </div>
                         <div className="filter-contents">
-                            <Dropdown options={movieStore.filter.fields.Country.values} value="" placeholder="Select Country" menuClassName=" v-scroll v-scroll-auto" searchable multi />
+                            <Dropdown
+                                options={movieStore.filter.fields.Country.values}
+                                value={uiStore.filterValues.Country}
+                                onChange={(val) => { uiStore.onFilterValueChange('Country', val, true) }}
+                                placeholder="Select Country"
+                                menuClassName=" v-scroll v-scroll-auto"
+                                searchable multi />
                         </div>
                     </div>
                     <div className="filter-section">
@@ -141,7 +167,13 @@ function FilterList() {
                             <div className="filter-title"><span>Language</span></div>
                         </div>
                         <div className="filter-contents">
-                            <Dropdown options={movieStore.filter.fields.Language.values} value="" placeholder="Select Language" menuClassName=" v-scroll v-scroll-auto" searchable multi />
+                            <Dropdown
+                                options={movieStore.filter.fields.Language.values}
+                                value={uiStore.filterValues.Language}
+                                onChange={(val) => { uiStore.onFilterValueChange('Language', val, true) }}
+                                placeholder="Select Language"
+                                menuClassName=" v-scroll v-scroll-auto"
+                                searchable multi />
                         </div>
                     </div>
                     <div className="filter-section">
@@ -154,8 +186,10 @@ function FilterList() {
                                     min={movieStore.filter.fields.BoxOffice.min}
                                     max={movieStore.filter.fields.BoxOffice.max}
                                     step={1000000}
+                                    value={uiStore.filterValues.BoxOffice}
                                     defaultValue={[movieStore.filter.fields.BoxOffice.min, movieStore.filter.fields.BoxOffice.max]}
-                                    onChange={(val) => { uiStore.onFilterValueChange("BoxOffice", val) }} />
+                                    onChange={(val) => { uiStore.onFilterValueChange("BoxOffice", val) }}
+                                    onAfterChange={(val) => { uiStore.onFilterValueChange("BoxOffice", val, true) }} />
                             </div>
                             <div className="slider-values">
                                 <span>{"$" + nFormatter(uiStore.filterValues.BoxOffice[0], 1)}</span>

@@ -3,7 +3,6 @@ import "./Dropdown.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretUp, faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import Fuse from "fuse.js";
-import { toJS } from "mobx";
 
 class Dropdown extends Component {
 	constructor(props) {
@@ -53,8 +52,6 @@ class Dropdown extends Component {
 			return v !== undefined && v !== null;
 		});
 		
-		console.log("options: ", options);
-
 		return (options.length > 0) ? options : null;
 	}
 
@@ -139,7 +136,7 @@ class Dropdown extends Component {
 		document.removeEventListener('keydown', this.handleDocumentKeyDown);
 	}
 
-	componentDidUpdate(prevProps, prevState) {
+	componentDidUpdate(prevProps) {
 		if(JSON.stringify(prevProps.value) !== JSON.stringify(this.props.value)) {
 			this.setState({ selected: this.parseValue(this.props.value) || [] });
 		}

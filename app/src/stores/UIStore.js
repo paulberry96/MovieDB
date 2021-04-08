@@ -45,7 +45,10 @@ export default class UIStore {
         }
     }
 
-    onFilterValueChange(filter, value) {
+    onFilterValueChange(filter, value, apply) {
         this.filterValues[filter] = value;
+
+        if(apply)
+            this.rootStore.movieStore.applyFilters(this.filterValues);
     }
 }

@@ -1,4 +1,3 @@
-import { toJS } from "mobx";
 import { makeObservable, observable, action } from "mobx";
 
 export default class MovieStore {
@@ -24,16 +23,16 @@ export default class MovieStore {
         loaded: false,
         fields: {
             "Year": { type: 'minmax' },
-            "Genre": { type: 'list' },
+            "Genre": { type: 'list', emptyVal: "- None -" },
             "imdbRating": { type: 'minmax', emptyVal: 0 },
             "Runtime": { type: 'minmax' },
             "imdbVotes": { type: 'minmax' },
             "Rated": { type: 'single', emptyVal: "Unrated" },
-            "Country": { type: 'list' },
-            "Language": { type: 'list' },
+            "Country": { type: 'list', emptyVal: "- None -" },
+            "Language": { type: 'list', emptyVal: "- None -" },
             "BoxOffice": { type: 'minmax' }
         },
-        currentFilters: []
+        current: {}
     };
 
     // United States Ratings
@@ -54,6 +53,7 @@ export default class MovieStore {
 
             setMovies: action,
             populateFilters: action,
+            applyFilters: action,
             setSortOption: action,
             sortMovies: action,
             toggleSortDir: action,
@@ -87,6 +87,7 @@ export default class MovieStore {
     populateFilters = () => {
         const movies = this.movies;
         const length = movies.length;
+
         let i, j, movie, fieldVal, parsedVal, foundObj;
         for(i = 0; i < length; i++) {
             movie = movies[i];
@@ -112,15 +113,24 @@ export default class MovieStore {
                 }
                 else if(fObj.type === 'list') {
                     if(fObj.values === undefined) fObj.values = [];
+
+                    if(fieldVal.length === 0 && fObj.emptyVal !== undefined) {
+                        foundObj = fObj.values.find(o => o.value === fObj.emptyVal);
+                        if(foundObj)
+                            foundObj.count++;
+                        else
+                            fObj.values.push({ value: fObj.emptyVal, label: fObj.emptyVal, count: 1 });
+
+                        continue;
+                    }
+
                     for(j = 0; j < fieldVal.length; j++) {
 
-                        if(fieldVal[j].trim() !== "" || fObj.emptyVal === undefined)
-                            parsedVal = fieldVal[j].trim();
-                        else
-                            parsedVal = fObj.emptyVal;
+                        parsedVal = fieldVal[j].trim();
+
+                        if(parsedVal === "") continue;
 
                         foundObj = fObj.values.find(o => o.value === parsedVal);
-
                         if(foundObj)
                             foundObj.count++;
                         else
@@ -136,7 +146,6 @@ export default class MovieStore {
                         parsedVal = fObj.emptyVal;
 
                     foundObj = fObj.values.find(o => o.value === parsedVal);
-
                     if(foundObj)
                         foundObj.count++;
                     else
@@ -148,6 +157,32 @@ export default class MovieStore {
         this.rootStore.uiStore.initFilterDefaults(this.filter.fields);
 
         this.filter.loaded = true;
+    }
+
+    applyFilters = (filters) => {
+
+        let activeFilters = {};
+        const filterInfo = this.filter.fields;
+        let hasValue, filter, info;
+
+        for(const key in filters) {
+            hasValue = false;
+            filter = filters[key];
+            info = filterInfo[key];
+            if(info.type === "minmax") {
+                if(filter[0] !== info.min || filter[1] !== info.max)
+                    hasValue = true;
+            }
+            else if(info.type === "list" || info.type === "single") {
+                if(filter.length > 0)
+                    hasValue = true;
+            }
+
+            if(hasValue)
+                activeFilters[key] = filter;
+        }
+        
+        this.filter.current = activeFilters;
     }
 
     sortMovies = () => {
