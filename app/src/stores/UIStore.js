@@ -3,13 +3,13 @@ import { makeObservable, observable, action } from "mobx";
 export default class UIStore {
 
     viewType = "grid-view"; // grid-view, list-view
-    filtersShown = false;
+    filterListShown = false;
     filterValues = {};
 
     constructor(rootStore) {
         makeObservable(this, {
             viewType: observable,
-            filtersShown: observable,
+            filterListShown: observable,
             filterValues: observable,
 
             toggleView: action,
@@ -27,7 +27,7 @@ export default class UIStore {
     }
 
     toggleFilters = () => {
-        this.filtersShown = !this.filtersShown;
+        this.filterListShown = !this.filterListShown;
     }
 
     resetAllFilters = () => {

@@ -18,7 +18,10 @@ function MovieList() {
 	return (
 		<div className={`movie-list-wrapper ${uiStore.viewType}`}>
 			<div className="section-left">
-				<FilterList />
+				{uiStore.filterListShown ?
+					<FilterList />
+					: null
+				}
 			</div>
 			<div className="section-right">
 				<div className="action-bar">
@@ -35,7 +38,7 @@ function MovieList() {
 							</button>
 						</div>
 						<div className="filter">
-							<button onClick={uiStore.toggleFilters} className={`btn${uiStore.filtersShown ? " selected" : ""}`}>
+							<button onClick={uiStore.toggleFilters} className={`btn${uiStore.filterListShown ? " selected" : ""}`}>
 								<FontAwesomeIcon icon={faFilter} />
 							</button>
 						</div>
