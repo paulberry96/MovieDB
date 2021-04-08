@@ -40,7 +40,7 @@ function MovieList() {
 							</button>
 						</div>
 						<div className="sort">
-							<Dropdown options={sortOptions} onChange={movieStore.setSortOption} value={movieStore.sort.value} placeholder="Sort" />
+							<Dropdown options={sortOptions} onChange={movieStore.setSortOption} value={movieStore.sort.value} defaultValue="Year" placeholder="Sort" />
 							<button onClick={movieStore.toggleSortDir} className="btn btn-sort-dir">
 								<FontAwesomeIcon icon={movieStore.sort.dir === 1 ? faSortAmountDownAlt : faSortAmountUp} />
 							</button>
