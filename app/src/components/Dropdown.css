@@ -48,12 +48,21 @@
 }
 
 .dropdown-menu .dropdown-option {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     padding:8px 10px;
     background:#383838;
     cursor:pointer;
     color: #dadada;
 	transition: all 200ms ease;
     line-height:normal;
+}
+
+.dropdown-menu .dropdown-option > .count {
+    font-size:14px;
+    color:#888;
 }
 
 .dropdown-menu .dropdown-option:first-child {
@@ -71,4 +80,8 @@
 .dropdown-menu .dropdown-option.active {
     background-color: #3b738c;
 	color: #dadada;
+}
+
+.dropdown-menu .dropdown-option.active > .count {
+    color:#dadada;
 }
