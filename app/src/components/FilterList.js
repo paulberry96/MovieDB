@@ -34,13 +34,17 @@ function FilterList() {
                 <div className="filter-list v-scroll">
                     <div className="title">
                         <span>Filters</span>
-                        <button className="btn" onClick={uiStore.resetAllFilters}>Clear all</button>
+                        <button className="btn" onClick={uiStore.clearAllFilters}>Clear all</button>
                     </div>
                     <div className="filter-section">
                         <div className="filter-header">
-                            <div className="filter-title">
-                                <span>Year</span>
-                            </div>
+                            <div className="filter-title"><span>Year</span></div>
+                            {(movieStore.filter.current.hasOwnProperty("Year")) ?
+                                <div className="filter-reset" onClick={() => { uiStore.clearFilter("Year") }}>
+                                    <span>Clear</span>
+                                </div>
+                                : null
+                            }
                         </div>
                         <div className="filter-contents">
                             <div className="slider-wrapper">
@@ -61,6 +65,12 @@ function FilterList() {
                     <div className="filter-section">
                         <div className="filter-header">
                             <div className="filter-title"><span>Genre</span></div>
+                            {(movieStore.filter.current.hasOwnProperty("Genre")) ?
+                                <div className="filter-reset" onClick={() => { uiStore.clearFilter("Genre") }}>
+                                    <span>Clear</span>
+                                </div>
+                                : null
+                            }
                         </div>
                         <div className="filter-contents">
                             <Dropdown
@@ -75,6 +85,12 @@ function FilterList() {
                     <div className="filter-section">
                         <div className="filter-header">
                             <div className="filter-title"><span>Rating</span></div>
+                            {(movieStore.filter.current.hasOwnProperty("imdbRating")) ?
+                                <div className="filter-reset" onClick={() => { uiStore.clearFilter("imdbRating") }}>
+                                    <span>Clear</span>
+                                </div>
+                                : null
+                            }
                         </div>
                         <div className="filter-contents">
                             <div className="slider-wrapper">
@@ -96,6 +112,12 @@ function FilterList() {
                     <div className="filter-section">
                         <div className="filter-header">
                             <div className="filter-title"><span>Runtime</span></div>
+                            {(movieStore.filter.current.hasOwnProperty("Runtime")) ?
+                                <div className="filter-reset" onClick={() => { uiStore.clearFilter("Runtime") }}>
+                                    <span>Clear</span>
+                                </div>
+                                : null
+                            }
                         </div>
                         <div className="filter-contents">
                             <div className="slider-wrapper">
@@ -116,6 +138,12 @@ function FilterList() {
                     <div className="filter-section">
                         <div className="filter-header">
                             <div className="filter-title"><span>Votes</span></div>
+                            {(movieStore.filter.current.hasOwnProperty("imdbVotes")) ?
+                                <div className="filter-reset" onClick={() => { uiStore.clearFilter("imdbVotes") }}>
+                                    <span>Clear</span>
+                                </div>
+                                : null
+                            }
                         </div>
                         <div className="filter-contents">
                             <div className="slider-wrapper">
@@ -137,6 +165,12 @@ function FilterList() {
                     <div className="filter-section">
                         <div className="filter-header">
                             <div className="filter-title"><span>Rated</span></div>
+                            {(movieStore.filter.current.hasOwnProperty("Rated")) ?
+                                <div className="filter-reset" onClick={() => { uiStore.clearFilter("Rated") }}>
+                                    <span>Clear</span>
+                                </div>
+                                : null
+                            }
                         </div>
                         <div className="filter-contents">
                             <Dropdown
@@ -144,13 +178,18 @@ function FilterList() {
                                 value={uiStore.filterValues.Rated}
                                 onChange={(val) => { uiStore.onFilterValueChange('Rated', val, true) }}
                                 placeholder="Select Rating"
-                                menuClassName="v-scroll v-scroll-auto"
-                                multi />
+                                menuClassName="v-scroll v-scroll-auto" />
                         </div>
                     </div>
                     <div className="filter-section">
                         <div className="filter-header">
                             <div className="filter-title"><span>Country</span></div>
+                            {(movieStore.filter.current.hasOwnProperty("Country")) ?
+                                <div className="filter-reset" onClick={() => { uiStore.clearFilter("Country") }}>
+                                    <span>Clear</span>
+                                </div>
+                                : null
+                            }
                         </div>
                         <div className="filter-contents">
                             <Dropdown
@@ -165,6 +204,12 @@ function FilterList() {
                     <div className="filter-section">
                         <div className="filter-header">
                             <div className="filter-title"><span>Language</span></div>
+                            {(movieStore.filter.current.hasOwnProperty("Language")) ?
+                                <div className="filter-reset" onClick={() => { uiStore.clearFilter("Language") }}>
+                                    <span>Clear</span>
+                                </div>
+                                : null
+                            }
                         </div>
                         <div className="filter-contents">
                             <Dropdown
@@ -179,6 +224,12 @@ function FilterList() {
                     <div className="filter-section">
                         <div className="filter-header">
                             <div className="filter-title"><span>Box Office</span></div>
+                            {(movieStore.filter.current.hasOwnProperty("BoxOffice")) ?
+                                <div className="filter-reset" onClick={() => { uiStore.clearFilter("BoxOffice") }}>
+                                    <span>Clear</span>
+                                </div>
+                                : null
+                            }
                         </div>
                         <div className="filter-contents">
                             <div className="slider-wrapper">

@@ -14,7 +14,8 @@ export default class UIStore {
 
             toggleView: action,
             toggleFilters: action,
-            resetAllFilters: action,
+            clearAllFilters: action,
+            clearFilter: action,
             initFilterDefaults: action,
             onFilterValueChange: action
         });
@@ -30,8 +31,13 @@ export default class UIStore {
         this.filterListShown = !this.filterListShown;
     }
 
-    resetAllFilters = () => {
+    clearAllFilters = () => {
         this.initFilterDefaults(this.rootStore.movieStore.filter.fields);
+        this.rootStore.movieStore.updateFilters(this.filterValues);
+    }
+
+    clearFilter = (filter) => {
+        this.initFilterDefaults({ [filter]: this.rootStore.movieStore.filter.fields[filter] });
         this.rootStore.movieStore.updateFilters(this.filterValues);
     }
 

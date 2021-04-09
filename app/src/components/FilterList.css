@@ -42,6 +42,16 @@
 	background: #292929;
 }
 
+.filter-section > .filter-header > .filter-reset {
+    font-size: 14px;
+    color: #737373;
+	cursor:pointer;
+}
+
+.filter-section > .filter-header > .filter-reset:hover {
+	color:#dadada;
+}
+
 .filter-section > .filter-contents {
 	background: #292929;
 	padding: 5px 15px 20px 15px;
