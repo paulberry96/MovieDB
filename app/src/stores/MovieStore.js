@@ -207,6 +207,8 @@ export default class MovieStore {
                 info = this.filter.fields[filterName];
 
                 if(info.type === "list") {
+                    if(movieProp.length === 0 && info.emptyVal !== undefined)
+                        movieProp = [info.emptyVal];
                     shouldShow = filter.every(val => movieProp.includes(val.value));
                 }
                 else if(info.type === "minmax") {
@@ -214,6 +216,9 @@ export default class MovieStore {
                     shouldShow = (numVal >= filter[0] && numVal <= filter[1]);
                 }
                 else if(info.type === "single") {
+                    if(movieProp === "" && info.emptyVal !== undefined)
+                        movieProp = info.emptyVal;
+
                     shouldShow = filter.every(val => movieProp === val.value);
                 }
 
