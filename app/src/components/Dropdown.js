@@ -51,7 +51,7 @@ class Dropdown extends Component {
 		options = options.filter((v) => {
 			return v !== undefined && v !== null;
 		});
-		
+
 		return (options.length > 0) ? options : null;
 	}
 
@@ -92,6 +92,9 @@ class Dropdown extends Component {
 		const isOpen = this.props.multi ? this.state.isOpen : false;
 
 		this.setState({ selected: selected, isOpen: isOpen });
+
+		if(isOpen && this.props.searchable)
+			this.inputRef.current.focus();
 
 		if(this.props.onChange)
 			this.props.onChange(selected);
