@@ -3,7 +3,7 @@ import { makeObservable, observable, action } from "mobx";
 export default class UIStore {
 
     viewType = "grid-view"; // grid-view, list-view
-    filterListShown = false;
+    filterListShown = true;
     filterValues = {};
 
     constructor(rootStore) {
@@ -32,6 +32,7 @@ export default class UIStore {
 
     resetAllFilters = () => {
         this.initFilterDefaults(this.rootStore.movieStore.filter.fields);
+        this.rootStore.movieStore.updateFilters(this.filterValues);
     }
 
     initFilterDefaults = (fields) => {
@@ -45,10 +46,10 @@ export default class UIStore {
         }
     }
 
-    onFilterValueChange(filter, value, apply) {
+    onFilterValueChange(filter, value, update) {
         this.filterValues[filter] = value;
 
-        if(apply)
-            this.rootStore.movieStore.applyFilters(this.filterValues);
+        if(update)
+            this.rootStore.movieStore.updateFilters(this.filterValues);
     }
 }

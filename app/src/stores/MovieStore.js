@@ -53,6 +53,7 @@ export default class MovieStore {
 
             setMovies: action,
             populateFilters: action,
+            updateFilters: action,
             applyFilters: action,
             setSortOption: action,
             sortMovies: action,
@@ -159,7 +160,7 @@ export default class MovieStore {
         this.filter.loaded = true;
     }
 
-    applyFilters = (filters) => {
+    updateFilters = (filters) => {
 
         let activeFilters = {};
         const filterInfo = this.filter.fields;
@@ -181,8 +182,46 @@ export default class MovieStore {
             if(hasValue)
                 activeFilters[key] = filter;
         }
-        
+
         this.filter.current = activeFilters;
+
+        this.applyFilters();
+    }
+
+    applyFilters = () => {
+
+        const movies = this.movies;
+        const currentFilters = this.filter.current;
+        const length = movies.length;
+        let i, movie, filterName, shouldShow, info, filter, movieProp, numVal;
+
+        for(i = 0; i < length; i++) {
+            movie = movies[i];
+            shouldShow = true;
+            for(filterName in currentFilters) {
+                if(!currentFilters.hasOwnProperty(filterName)) continue;
+                if(!movie.hasOwnProperty(filterName)) { shouldShow = false; break; };
+
+                filter = currentFilters[filterName];
+                movieProp = movie[filterName];
+                info = this.filter.fields[filterName];
+
+                if(info.type === "list") {
+                    shouldShow = filter.every(val => movieProp.includes(val.value));
+                }
+                else if(info.type === "minmax") {
+                    numVal = Number(movieProp.replace(/([^\d.])/g, ""));
+                    shouldShow = (numVal >= filter[0] && numVal <= filter[1]);
+                }
+                else if(info.type === "single") {
+                    shouldShow = filter.every(val => movieProp === val.value);
+                }
+
+                if(!shouldShow)
+                    break;
+            }
+            movie.shown = shouldShow;
+        }
     }
 
     sortMovies = () => {

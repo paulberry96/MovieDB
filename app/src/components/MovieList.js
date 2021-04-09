@@ -15,6 +15,8 @@ function MovieList() {
 
 	const sortOptions = movieStore.sort.options.filter(opt => opt.enabled === true);
 
+	const movies = movieStore.movies.filter(movie => movie.shown !== false);
+
 	return (
 		<div className={`movie-list-wrapper ${uiStore.viewType}`}>
 			<div className="section-left">
@@ -26,7 +28,7 @@ function MovieList() {
 			<div className="section-right">
 				<div className="action-bar">
 					<div className="title">
-						<div>{movieStore.movies.length}</div><span>movies</span>
+						<div>{movies.length}</div><span>movies</span>
 					</div>
 					<div className="actions">
 						<div className="view-toggle">
@@ -72,8 +74,11 @@ function MovieList() {
 							: null
 						}
 						{
-							movieStore.movies.map(movieData => (
-								<MovieListItem key={movieData._id} data={movieData} viewType={uiStore.viewType} />
+							movies.map(movieData => (
+								<MovieListItem
+								key={movieData._id}
+								data={movieData}
+								viewType={uiStore.viewType} />
 							))
 						}
 					</div>
