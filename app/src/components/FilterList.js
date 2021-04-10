@@ -85,7 +85,7 @@ function FilterList() {
                                 onChange={(val) => { uiStore.onFilterValueChange('Genre', val, true) }}
                                 placeholder="Select Genre"
                                 menuClassName="v-scroll v-scroll-auto"
-                                searchable multi />
+                                searchable multi showCount />
                         </div>
                     </div>
                     <div className="filter-section">
@@ -184,7 +184,8 @@ function FilterList() {
                                 value={uiFilters.Rated}
                                 onChange={(val) => { uiStore.onFilterValueChange('Rated', val, true) }}
                                 placeholder="Select Rating"
-                                menuClassName="v-scroll v-scroll-auto" />
+                                menuClassName="v-scroll v-scroll-auto"
+                                showCount />
                         </div>
                     </div>
                     <div className="filter-section">
@@ -204,7 +205,7 @@ function FilterList() {
                                 onChange={(val) => { uiStore.onFilterValueChange('Country', val, true) }}
                                 placeholder="Select Country"
                                 menuClassName="v-scroll v-scroll-auto"
-                                searchable multi />
+                                searchable multi showCount />
                         </div>
                     </div>
                     <div className="filter-section">
@@ -224,7 +225,7 @@ function FilterList() {
                                 onChange={(val) => { uiStore.onFilterValueChange('Language', val, true) }}
                                 placeholder="Select Language"
                                 menuClassName="v-scroll v-scroll-auto"
-                                searchable multi />
+                                searchable multi showCount />
                         </div>
                     </div>
                     <div className="filter-section">

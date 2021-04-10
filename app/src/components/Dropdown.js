@@ -147,11 +147,13 @@ class Dropdown extends Component {
 
 	render() {
 		const { isOpen, selected, searchVal, searchResults } = this.state;
-		const { multi, searchable } = this.props;
+		const { options, multi, searchable, showCount } = this.props;
 
-		const options = this.props.options.sort((a, b) => {
-			return (b.count - a.count);
-		});
+		if(showCount) {
+			options.sort((a, b) => {
+				return (b.count - a.count);
+			});
+		}
 
 		let inputValue;
 		if(isOpen) {
@@ -183,9 +185,12 @@ class Dropdown extends Component {
 							return (searchVal === "" || searchResults.indexOf(opt.value) > -1) ?
 								<div key={opt.value} className={`dropdown-option${active ? " active" : ""}`} onClick={this.setValue.bind(this, opt.value)}>
 									<span>{opt.label}</span>
-									<span className="count">({opt.count})</span>
+									{showCount ?
+										<span className="count">({opt.count})</span>
+										: null
+									}
 								</div>
-								: null;
+								: null
 						})}
 					</div>
 					: null
