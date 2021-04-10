@@ -24,6 +24,14 @@ function nFormatter(num, digits) {
     return (num / si[i].value).toFixed(digits).replace(rx, "$1") + si[i].symbol;
 }
 
+function scrollIntoView(target) {
+    if(!target) return;
+    if(target.getBoundingClientRect().bottom > window.innerHeight)
+        target.scrollIntoView(false);
+    if(target.getBoundingClientRect().top < 0)
+        target.scrollIntoView();
+}
+
 function FilterList() {
 
     const { movieStore, uiStore } = useStore();
@@ -83,6 +91,7 @@ function FilterList() {
                                 options={filters.Genre.values}
                                 value={uiFilters.Genre}
                                 onChange={(val) => { uiStore.onFilterValueChange('Genre', val, true) }}
+                                onDropdown={(el) => { scrollIntoView(el.querySelector('.dropdown-menu')) }}
                                 placeholder="Select Genre"
                                 menuClassName="v-scroll v-scroll-auto"
                                 searchable multi showCount />
@@ -183,6 +192,7 @@ function FilterList() {
                                 options={filters.Rated.values}
                                 value={uiFilters.Rated}
                                 onChange={(val) => { uiStore.onFilterValueChange('Rated', val, true) }}
+                                onDropdown={(el) => { scrollIntoView(el.querySelector('.dropdown-menu')) }}
                                 placeholder="Select Rating"
                                 menuClassName="v-scroll v-scroll-auto"
                                 showCount />
@@ -203,6 +213,7 @@ function FilterList() {
                                 options={filters.Country.values}
                                 value={uiFilters.Country}
                                 onChange={(val) => { uiStore.onFilterValueChange('Country', val, true) }}
+                                onDropdown={(el) => { scrollIntoView(el.querySelector('.dropdown-menu')) }}
                                 placeholder="Select Country"
                                 menuClassName="v-scroll v-scroll-auto"
                                 searchable multi showCount />
@@ -223,6 +234,7 @@ function FilterList() {
                                 options={filters.Language.values}
                                 value={uiFilters.Language}
                                 onChange={(val) => { uiStore.onFilterValueChange('Language', val, true) }}
+                                onDropdown={(el) => { scrollIntoView(el.querySelector('.dropdown-menu')) }}
                                 placeholder="Select Language"
                                 menuClassName="v-scroll v-scroll-auto"
                                 searchable multi showCount />
