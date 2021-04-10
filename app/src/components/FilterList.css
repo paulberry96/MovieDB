@@ -1,0 +1,120 @@
+.filter-list-wrapper {
+	height: 100%;
+	background: #333;
+}
+
+.filter-list {
+	display: flex;
+	flex-direction: column;
+	width: 14vw;
+	height:100%;
+	min-width:240px;
+	padding-bottom:20px;
+}
+
+.filter-list > .title {
+	font-size: 20px;
+	color: #dadada;
+	padding: 15px 4px 15px 15px;
+	display:flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.filter-list > .title > .btn {
+	background-color:#444;
+}
+
+.filter-list > .filter-section {
+	flex-direction: row;
+	width: 100%;
+	padding-left:14px;
+	padding-right: 4px;
+}
+
+.filter-section > .filter-header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 15px;
+	background: #292929;
+}
+
+.filter-section > .filter-header > .filter-reset {
+    font-size: 14px;
+    color: #737373;
+	cursor:pointer;
+}
+
+.filter-section > .filter-header > .filter-reset:hover {
+	color:#dadada;
+}
+
+.filter-section > .filter-contents {
+	background: #292929;
+	padding: 5px 15px 20px 15px;
+}
+
+.filter-section > .filter-contents.shown {
+	padding: 10px 15px;
+}
+
+.filter-contents > .dropdown {
+	width:100%;
+}
+
+.filter-contents > .dropdown > .dropdown-value {
+	border-radius:2px;
+}
+
+.filter-contents > .dropdown > .dropdown-menu {
+	max-height:304px;
+	border-radius:2px;
+}
+
+.slider-values {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 10px;
+}
+
+.slider-values span {
+	font-size: 14px;
+	color: #888;
+	font-weight: 700;
+}
+
+.slider-wrapper > .rc-slider {
+	padding: 4px 0;
+}
+
+.rc-slider > .rc-slider-rail,
+.rc-slider > .rc-slider-track,
+.rc-slider > .rc-slider-step {
+	height: 6px;
+}
+
+.rc-slider > .rc-slider-rail {
+    background-color: #656565;
+}
+
+.rc-slider > .rc-slider-track {
+    background-color:#4aa0c7;
+}
+
+.rc-slider > .rc-slider-handle {
+    border:none;
+    margin-top:-4px;
+    cursor:pointer;
+}
+
+.rc-slider > .rc-slider-handle:active,
+.rc-slider > .rc-slider-handle.rc-slider-handle-dragging {
+    cursor:pointer;
+    box-shadow:none !important;
+    border:none;
+}

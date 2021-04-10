@@ -20,7 +20,7 @@ export default class App extends React.Component {
 
 						<Header />
 
-						<div className="contents v-scroll">
+						<div className="contents">
 							<Switch>
 								<Route exact path="/" component={HomePage} />
 							</Switch>

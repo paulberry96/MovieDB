@@ -1,87 +1,109 @@
 .movie-list-wrapper {
-	display:flex;
-	flex-direction: column;
-	padding: 20px 20px;
+	display: flex;
+	flex-direction: row;
+	max-height: 100%;
+	overflow: hidden;
 }
 
 .movie-list-wrapper.list-view {
-	max-height:100%;
+	max-height: 100%;
 }
 
-.movie-list-wrapper > .movie-list.grid-view {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, 180px);
-	grid-gap: 30px 40px;
-	align-items: flex-start;
-	justify-content: space-between;
-	margin: 20px 0px 0px 0px;
-}
-
-.movie-list-wrapper > .movie-list.list-view {
-	display: grid;
-    /* grid-template-columns: minmax(200px, 1fr) minmax(min-content, 150px) 1fr; */
-    /* grid-template-columns: minmax(min-content, 1fr) minmax(min-content, 1fr) minmax(min-content, 1fr); */
-	grid-template-columns: repeat(8, auto);
-    margin-top: 20px;
-	overflow-y:scroll;
-}
-
-.movie-list-wrapper > .movie-list.list-view::-webkit-scrollbar-thumb {
-	border:none;
-	border-left:3px solid transparent;
-	border-right:3px solid transparent;
-	border-radius:6px;
-}
-
-.movie-list-wrapper > .movie-list.list-view::-webkit-scrollbar-thumb:horizontal {
-	border:none;
-	border-top:3px solid transparent;
-	border-bottom:3px solid transparent;
-	border-radius:6px;
-}
-
-.movie-list-wrapper > .movie-list.list-view > .list-header {
-	display:contents;
-}
-
-.movie-list-wrapper > .movie-list.list-view > .list-header > div {
-	position:sticky;
-	top:0;
+.movie-list-wrapper > .section-left {
 	display: flex;
-    flex-direction: row;
-    align-items: center;
+	flex-direction: column;
+	flex: 1 1 auto;
+}
+
+.movie-list-wrapper > .section-right {
+	display: flex;
+    flex-direction: column;
+    flex: 1 1 100%;
+	overflow:hidden;
+}
+
+.movie-list-container.list-view {
+	margin-top:20px;
+	max-width: 100%;
+    overflow-x: auto;
+}
+
+.movie-list.grid-view {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 180px);
+    grid-gap: 30px 40px;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 30px 20px 40px 34px;
+}
+
+.movie-list.list-view {
+	display: grid;
+	/* grid-template-columns: minmax(200px, 1fr) minmax(min-content, 150px) 1fr; */
+	/* grid-template-columns: minmax(min-content, 1fr) minmax(min-content, 1fr) minmax(min-content, 1fr); */
+	grid-template-columns: repeat(8, auto);
+	padding:0px 20px 20px 20px;
+}
+
+.movie-list.list-view::-webkit-scrollbar-thumb {
+	border: none;
+	border-left: 3px solid transparent;
+	border-right: 3px solid transparent;
+	border-radius: 6px;
+}
+
+.movie-list.list-view::-webkit-scrollbar-thumb:horizontal {
+	border: none;
+	border-top: 3px solid transparent;
+	border-bottom: 3px solid transparent;
+	border-radius: 6px;
+}
+
+.movie-list.list-view > .list-header {
+	display: contents;
+}
+
+.movie-list.list-view > .list-header > div {
+	position: sticky;
+	top: 0;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 	padding: 16px 15px;
-    background: #383838;
+	background: #383838;
 	white-space: nowrap;
 }
 
-.movie-list-wrapper > .movie-list.list-view > .list-header > div > span {
-	padding-right:20px;
+.movie-list.list-view > .list-header > div > span {
+	padding-right: 20px;
 }
 
-.movie-list-wrapper > .movie-list.list-view > .list-header > div > .sortArrow {
-	position:absolute;
-	right:15px;
+.movie-list.list-view > .list-header > div > .sortArrow {
+	position: absolute;
+	right: 15px;
 }
 
-.movie-list-wrapper > .movie-list.list-view > .list-header > div:not(:last-child) {
+.movie-list.list-view > .list-header > div:not(:last-child) {
 	border-right: 2px solid #222;
 }
 
-.movie-list-wrapper > .movie-list.list-view > .list-header > div.sortable:hover {
-	background:#444;
-	cursor:pointer;
-	color:#fff;
+.movie-list.list-view > .list-header > div.sortable:hover {
+	background: #444;
+	cursor: pointer;
+	color: #fff;
 }
 
-.movie-list-wrapper > .action-bar {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
+.action-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 	line-height:34px;
+    padding: 14px 34px;
+    box-shadow: 0px 4px 6px -3px rgb(0 0 0 / 40%);
 }
 
-.movie-list-wrapper > .action-bar > .title > div {
+.action-bar > .title > div {
 	display: inline-block;
 	font-size: 20px;
 	color: #fafafa;
@@ -89,57 +111,42 @@
 	margin: 0;
 }
 
-.movie-list-wrapper > .action-bar > .title > span {
+.action-bar > .title > span {
 	font-size: 16px;
 	color: #efefef;
 }
 
-.movie-list-wrapper > .action-bar > .actions {
+.action-bar > .actions {
 	display: flex;
 	flex-direction: row;
 }
 
-.movie-list-wrapper > .action-bar > .actions > div {
+.action-bar > .actions > div {
 	display: flex;
 	flex-direction: row;
 	margin-left: 15px;
 }
 
-.movie-list-wrapper > .action-bar > .actions button {
-	font-size: 16px;
-	background-color: #3a3a3a;
-	color: #dadada;
-	padding: 0px 10px;
-	cursor: pointer;
-	outline: none;
-	border: none;
-	transition: all 200ms ease;
-}
-
-.movie-list-wrapper > .action-bar > .actions button:hover {
-	background: #444;
-	color: #fff;
-}
-
-.movie-list-wrapper > .action-bar > .actions > .sort > .btn-sort-dir {
+.action-bar > .actions > .sort > .btn-sort-dir {
 	border-left: 1px solid #5f5f5f;
 	border-radius: 0px 2px 2px 0px;
 }
 
-.movie-list-wrapper > .action-bar > .actions > .view-toggle {
+.action-bar > .actions > .view-toggle {
 	border: 1px solid #444;
-    padding: 3px;
-    border-radius: 4px;
+	padding: 3px;
+	border-radius: 4px;
 }
 
-.movie-list-wrapper > .action-bar > .actions > .view-toggle > .btn-toggle-view {
+.action-bar .btn-toggle-view,
+.action-bar .btn-toggle-view:hover {
 	border-radius: 2px;
-	background:#222;
-	color:#444;
+	background: #222;
+	color: #444;
 }
 
-.movie-list-wrapper > .action-bar > .actions > .view-toggle > .btn-toggle-view.selected {
-	background:#444;
+.action-bar .btn-toggle-view.selected:hover {
+	background: #4f788a;
 	color:#dadada;
 }
 
@@ -171,12 +178,12 @@
 
 .Dropdown-menu {
 	background-color: #3a3a3a;
-	box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.4);
+	box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.4);
 	border: none;
 	top: 120%;
 	border-radius: 2px;
-	max-height:unset;
-	overflow:hidden;
+	max-height: unset;
+	overflow: hidden;
 }
 
 .Dropdown-option {

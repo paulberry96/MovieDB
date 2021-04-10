@@ -8,7 +8,7 @@ class Dropdown extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			selected: this.parseValue(this.props.value) || { value: '', label: '' },
+			selected: this.parseValue(this.props.value) || [],
 			isOpen: false,
 			searchVal: "",
 			searchResults: []
@@ -30,12 +30,29 @@ class Dropdown extends Component {
 	}
 
 	parseValue(value) {
-		let option;
-		for(let i = 0; i < this.props.options.length; i++) {
-			if(this.props.options[i].value === value)
-				option = this.props.options[i];
+
+		let options = [];
+
+		if(typeof value === 'string') {
+			options.push(this.props.options.find(o => o.value === value));
 		}
-		return option;
+		else if(!Array.isArray(value) && typeof value === 'object') {
+			options.push(this.props.options.find(o => o.value === value.value));
+		}
+		else if(Array.isArray(value)) {
+			options = value.map((v) => {
+				if(typeof v === 'string')
+					return this.props.options.find(o => o.value === v)
+				else if(typeof v === 'object')
+					return this.props.options.find(o => o.value === v.value);
+			});
+		}
+
+		options = options.filter((v) => {
+			return v !== undefined && v !== null;
+		});
+
+		return (options.length > 0) ? options : null;
 	}
 
 	handleDropdownClick() {
@@ -49,15 +66,39 @@ class Dropdown extends Component {
 		else {
 			if(this.props.searchable)
 				this.inputRef.current.focus();
-			this.setState({ isOpen: true, searchVal: "" });
+			this.setState({ isOpen: true, searchVal: "" }, () => {
+				if(this.props.onDropdown) {
+					this.props.onDropdown(this.dropdownRef.current);
+				}
+			});
 		}
 	}
 
 	setValue(value) {
 
-		const selected = this.parseValue(value);
+		let selected = this.state.selected;
+		const newValue = this.parseValue(value)[0];
 
-		this.setState({ selected: selected, isOpen: false });
+		if(this.props.multi) {
+			const index = selected.findIndex(s => s.value === newValue.value);
+			if(index > -1)
+				selected.splice(index, 1);
+			else
+				selected.push(newValue);
+		}
+		else {
+			selected = [newValue];
+		}
+
+		if(selected.length === 0 && this.props.defaultValue)
+			selected = this.parseValue(this.props.defaultValue);
+
+		const isOpen = this.props.multi ? this.state.isOpen : false;
+
+		this.setState({ selected: selected, isOpen: isOpen });
+
+		if(isOpen && this.props.searchable)
+			this.inputRef.current.focus();
 
 		if(this.props.onChange)
 			this.props.onChange(selected);
@@ -84,7 +125,6 @@ class Dropdown extends Component {
 		let searchResults = [];
 
 		if(val !== "") {
-			// searchResults = this.fuse.search(val);
 			searchResults = this.fuse.search(val).map((v, i) => { return v.item.value; });
 		}
 
@@ -103,13 +143,34 @@ class Dropdown extends Component {
 		document.removeEventListener('keydown', this.handleDocumentKeyDown);
 	}
 
+	componentDidUpdate(prevProps) {
+		if(JSON.stringify(prevProps.value) !== JSON.stringify(this.props.value)) {
+			this.setState({ selected: this.parseValue(this.props.value) || [] });
+		}
+	}
+
 	render() {
 		const { isOpen, selected, searchVal, searchResults } = this.state;
-		const options = this.props.options;
+		const { options, multi, searchable, showCount } = this.props;
 
-		const inputValue = isOpen ? searchVal : selected.label;
-		
-		const menuClassName = `dropdown-menu${(isOpen) ? " shown" : ""}` + (this.props.menuClassName || "");
+		if(showCount) {
+			options.sort((a, b) => {
+				return (b.count - a.count);
+			});
+		}
+
+		let inputValue;
+		if(isOpen) {
+			if(searchable) inputValue = searchVal;
+			else if(multi && selected.length > 1) inputValue = `${selected.length} Selected..`;
+			else inputValue = selected.length > 0 ? selected[0].label : "";
+		}
+		else {
+			if(multi && selected.length > 1) inputValue = `${selected.length} Selected..`;
+			else inputValue = selected.length > 0 ? selected[0].label : "";
+		}
+
+		const menuClassName = `dropdown-menu${(isOpen) ? " shown" : ""}` + (this.props.menuClassName ? ` ${this.props.menuClassName}` : "");
 
 		return (
 			<div className="dropdown" ref={this.dropdownRef}>
@@ -117,18 +178,23 @@ class Dropdown extends Component {
 					{(this.props.searchable) ?
 						<input className="dropdown-input" ref={this.inputRef} value={inputValue} placeholder={this.props.placeholder || ""} onChange={this.handleSearchInput} />
 						:
-						<input className="dropdown-input" value={selected.label || ""} placeholder={this.props.placeholder} readOnly />
+						<input className="dropdown-input" value={inputValue} placeholder={this.props.placeholder} readOnly />
 					}
 					<FontAwesomeIcon icon={isOpen ? faCaretUp : faCaretDown} className="icon" />
 				</div>
 				{ isOpen ?
 					<div className={menuClassName}>
 						{options.map((opt) => {
+							const active = selected.find(s => s.value === opt.value) !== undefined;
 							return (searchVal === "" || searchResults.indexOf(opt.value) > -1) ?
-								<div key={opt.value} className={`dropdown-option${(opt.value === selected.value) ? " active" : ""}`} onClick={this.setValue.bind(this, opt.value)}>
-									{opt.label}
+								<div key={opt.value} className={`dropdown-option${active ? " active" : ""}`} onClick={this.setValue.bind(this, opt.value)}>
+									<span>{opt.label}</span>
+									{showCount ?
+										<span className="count">({opt.count})</span>
+										: null
+									}
 								</div>
-								: null;
+								: null
 						})}
 					</div>
 					: null
