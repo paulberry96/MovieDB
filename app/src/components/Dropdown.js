@@ -66,7 +66,11 @@ class Dropdown extends Component {
 		else {
 			if(this.props.searchable)
 				this.inputRef.current.focus();
-			this.setState({ isOpen: true, searchVal: "" });
+			this.setState({ isOpen: true, searchVal: "" }, () => {
+				if(this.props.onDropdown) {
+					this.props.onDropdown(this.dropdownRef.current);
+				}
+			});
 		}
 	}
 
